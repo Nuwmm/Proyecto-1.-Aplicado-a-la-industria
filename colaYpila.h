@@ -47,7 +47,9 @@ void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechaz
 //OPERACION DEL TAD PILA
 void push(Empleados dato, Pila *pila);
 Empleados pop(Pila *pila);
-
+void mostrarPorcentajes(int aceptados, int rechazados);// se agrega la funcion para mostra la primera estadisticaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+void mostrarPromedio(ColaCircular *colaC);// se agregó la funcion para dar el promedio de las edades de los candidatos___________________________________________________
+void promedioSalario(ColaCircular *colaC);
 //OPERACIONES AUXILIARES TAD PILA
 Pila *crearPila(int max);
 int pilaVacia(Pila pila);
