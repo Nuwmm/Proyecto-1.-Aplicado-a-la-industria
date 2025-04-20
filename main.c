@@ -13,12 +13,14 @@ int main()
     ColaCircular *colaEmpleado = crearColaCircular(numEmpleados);
     Pila *pilaAceptados = crearPila(numEmpleados);
     Pila *pilaRechazados = crearPila(numEmpleados);
+    int a = 0, r = 0; // contadores para los porcentajes de aceptados y rechazados 
+    
 
     do
     {
         printf("\n====Sistema de Gestion de Solicitudes de Empleo====\n");
-        opcion = desplegarMenu("\n1)Ingresar un nuevo empleado\n2)Realizar encuesta\n3)Realizar validacion\n4)Listar empleados\n5)Empleados ACEPTADOS\n6)Empleados RECHAZADOS\n7)Salir\n\nOpcion: ", 7);
-        switch (opcion)
+        opcion = desplegarMenu("\n1)Ingresar un nuevo empleado\n2)Realizar encuesta\n3)Realizar validacion\n4)Listar empleados\n5)Empleados ACEPTADOS\n6)Empleados RECHAZADOS\n7)Mostrar las estadisticas de los empleados\n8)Salir\n\nOpcion: ", 8);
+        switch (opcion) // se le agregó al switch una opcion mas para la funcion estadistica, de momento solo va a ser una pero se le van a meter mas. _____________________________________________________________________________________________
         {
             case 1:
                 if(validarEspacio(*colaEmpleado))
@@ -33,7 +35,7 @@ int main()
                 encuesta(colaEmpleado);
                 break;
             case 3:
-                validarEmpleados(colaEmpleado, pilaAceptados, pilaRechazados);
+                validarEmpleados(colaEmpleado, pilaAceptados, pilaRechazados, &a, &r);// se pasa la direccion de memoria de a y r pero son obsoletas
                 printf("\nValidacion realizada con exito. . .");
                 break;
             case 4:
@@ -45,8 +47,12 @@ int main()
             case 6:
                 listarPila(*pilaRechazados);
                 break;
-        }
-    }while(opcion!=7); //Se va a ir modificando
+            case 7:
+                mostrarPorcentajes(a, r); // se va a llamar la funcion para mostrar la primera estadistica __________________________________________________________________________
+                mostrarPromedio(colaEmpleado);
+                promedioSalario(colaEmpleado);// hay qe meter estas estadisticas al archivo txt e imprimirlo 
+        } 
+    }while(opcion!=8); //Se va a ir modificando
     if(colaEmpleado->h<=colaEmpleado->t)
     {
         for(int i=colaEmpleado->h; i<colaEmpleado->t; i++)
