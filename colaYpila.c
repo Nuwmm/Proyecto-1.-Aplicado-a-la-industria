@@ -156,61 +156,159 @@ void encuesta(ColaCircular *colaC)
         printf("\nNo hay datos. . .");
 }
 
-void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechazados)
-{
+void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechazados, int *aceptados, int *rechazados)
+{   
+    int r = 0, a = 0; // Contadores
     int rechazado;
-    if(!validarVacio(*colaC))
+
+    if (!validarVacio(*colaC))
     {
-        if(colaC->h<=colaC->t)
-            for(int i=colaC->h; i<=colaC->t; i++)
+        if (colaC->h <= colaC->t)
+        {
+            for (int i = colaC->h; i <= colaC->t; i++)
             {
-                rechazado=1;
-                for(int j=0; j<MAX_ENCUESTA; j++)
+                rechazado = 1;
+                for (int j = 0; j < MAX_ENCUESTA; j++)
                 {
-                    if((colaC->arrCola[i].respuestas[j]==0))
+                    if(colaC->arrCola[i].respuestas[j] != 0)
                     {
-                        push(colaC->arrCola[i], pilaRechazados);
-                        rechazado=0;
-                        break;
+                       
+                            push(colaC->arrCola[i], pilaRechazados);
+                            (*rechazados)++; // contador de rechazados
+                            rechazado = 0;
+                            break;
                     }
                 }
-            if(rechazado)
-                push(colaC->arrCola[i], pilaAceptados);
-            }
-        else
-        {
-            for(int i=colaC->h; i<=colaC->max; i++)
-            {
-                rechazado=1;
-                for(int j=0; j<MAX_ENCUESTA; j++)
-                    {
-                        if(colaC->arrCola[i].respuestas[j]==0)
-                        {
-                            push(colaC->arrCola[i], pilaRechazados);
-                            rechazado=0;
-                            break;
-                        }
-                    }
-            if(rechazado)
-                push(colaC->arrCola[i], pilaAceptados);
-            }
-            for(int i=0; i<=colaC->t; i++)
-            {
-                rechazado=1;
-                for(int j=0; j<MAX_ENCUESTA; j++)
-                    {
-                        if(colaC->arrCola[i].respuestas[j]==0)
-                        {
-                            push(colaC->arrCola[i], pilaRechazados);
-                            rechazado=0;
-                            break;
-                        }
-                    }
-                if(rechazado)
+                if (rechazado)
+                {
                     push(colaC->arrCola[i], pilaAceptados);
+                    (*aceptados)++; // contador de aceptados
+                }
             }
         }
+        else
+        {
+            for (int i = colaC->h; i <= colaC->max; i++)
+            {
+                rechazado = 1;
+                for (int j = 0; j < MAX_ENCUESTA; j++)
+                {
+                    if(colaC->arrCola[i].respuestas[j] != 0)
+                    {
+                        if (colaC->arrCola[i].respuestas[j] == 0)
+                        {
+                            push(colaC->arrCola[i], pilaRechazados);
+                            (*rechazados)++;
+                            rechazado = 0;
+                            break;
+                        }
+                    }
+                }
+                if (rechazado)
+                {
+                    push(colaC->arrCola[i], pilaAceptados);
+                    a++;
+                }
+            }
+
+            for (int i = 0; i <= colaC->t; i++)
+            {
+                rechazado = 1;
+                for (int j = 0; j < MAX_ENCUESTA; j++)
+                {
+                    if(colaC->arrCola[i].respuestas[j] != 0)
+                    {
+                        if (colaC->arrCola[i].respuestas[j] == 0)
+                        {
+                            push(colaC->arrCola[i], pilaRechazados);
+                            (*rechazados)++;;
+                            rechazado = 0;
+                            break;
+                        }
+                    }
+                }
+                if (rechazado)
+                {
+                    push(colaC->arrCola[i], pilaAceptados);
+                    (*aceptados)++;;
+                }
+            }
+        }
+
+        // Mostrar resultados
+        printf("Total aceptados: %d\n", *aceptados); // se imprime la cantidad de rechazados y aceptados 
+        printf("Total rechazados: %d\n", *rechazados);
     }
     else
-        printf("No hay datos...");
+    {
+        printf("No hay datos...\n");
+    }
 }
+
+void mostrarPorcentajes(int aceptados, int rechazados)// funcion que saca el porcentaje de rechazados y aceptados segun la cantidad de encuestados. 
+{
+    int total = aceptados + rechazados;
+
+    if (total == 0) {
+        printf("No hay candidatos evaluados.\n");
+        return;
+    }
+
+    float porcentajeAceptados =  (float)aceptados / total * 100;
+    float porcentajeRechazados = (float)rechazados / total * 100;
+
+    printf("Total evaluados: %d\n", total);
+    printf("La cantidad de personas aceptadas fue de %d, que corresponde al  (%.2f%%) de los candidatos.\n", aceptados, porcentajeAceptados);
+    printf("La cantidad de personas rechazadas fue de  %d, que corresponde al  (%.2f%%) de los encuestados.\n", rechazados, porcentajeRechazados);
+}
+void mostrarPromedio(ColaCircular *colaC) {
+    if (validarVacio(*colaC)) {
+        printf("No hay datos en la cola.\n");
+        exit;
+    }
+    float suma = 0.0;
+    int contador = 0;
+    if (colaC->h <= colaC->t) {
+        for (int i = colaC->h; i <= colaC->t; i++) {
+            suma += colaC->arrCola[i].edad;
+            contador++;
+        }
+    } else {
+        for (int i = colaC->h; i < colaC->max; i++) {
+            suma += colaC->arrCola[i].edad;
+            contador++;
+        }
+        for (int i = 0; i <= colaC->t; i++) {
+            suma += colaC->arrCola[i].edad;
+            contador++;
+        }
+    }
+    suma=(float)suma / contador;
+    printf("La media de las edades entre los entrevistados es de %f años de edad.", suma);
+} // probar la funcion con el flotamte y entero en contador y suma 
+void promedioSalario(ColaCircular *colaC) {
+    if (validarVacio(*colaC)) {
+        printf("No hay datos en la cola.\n");
+        exit;
+    }
+    float suma = 0.0;
+    int contador = 0;
+    if (colaC->h <= colaC->t) {
+        for (int i = colaC->h; i <= colaC->t; i++) {
+            suma += colaC->arrCola[i].salario;
+            contador++;
+        }
+    } else {
+        for (int i = colaC->h; i < colaC->max; i++) {
+            suma += colaC->arrCola[i].salario;
+            contador++;
+        }
+        for (int i = 0; i <= colaC->t; i++) {
+            suma += colaC->arrCola[i].salario;
+            contador++;
+        }
+    }
+    suma=(float)suma / contador;
+    printf("La media del salario anhelado entre los entrevistados es de %f pesos.", suma);
+}
+
