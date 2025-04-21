@@ -42,7 +42,7 @@ int validarVacio(ColaCircular colaC);
 void listar(ColaCircular colaC);
 void liberarMemoriaCola(ColaCircular *colaC);
 void encuesta(ColaCircular *colaC);
-void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechazados);
+void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechazados,int *aceptados, int *rechazados);
 
 //OPERACION DEL TAD PILA
 void push(Empleados dato, Pila *pila);
