@@ -15,16 +15,17 @@ Empleados *inicializarEmpleados()
     nuevoEmpleado->puesto = (char *)calloc(MAX_TEXTO, sizeof(char));
     nuevoEmpleado->experiencia = (char *)calloc(MAX_TEXTO, sizeof(char));
     nuevoEmpleado->telefono = (char *)calloc(MAX_TEXTO, sizeof(char));
-    //
-     nuevoEmpleado->estado = (char *)calloc(MAX_TEXTO, sizeof(char));
+    nuevoEmpleado->estado = (char *)calloc(MAX_TEXTO, sizeof(char));
     if (!nuevoEmpleado->estado) exit(-1);
     nuevoEmpleado->genero = (char *)calloc(MAX_TEXTO, sizeof(char));
     if (!nuevoEmpleado->genero) exit(-1);
-    //
+
     nuevoEmpleado->departamento = (char *)calloc(MAX_TEXTO, sizeof(char));
     nuevoEmpleado->respuestas = (int *)calloc(MAX_ENCUESTA, sizeof(int));
     if(!nuevoEmpleado->nombre || !nuevoEmpleado->puesto || !nuevoEmpleado->experiencia || !nuevoEmpleado->departamento || !nuevoEmpleado->respuestas)
         exit(-1);
+    
+
     // INICIALIZAR ID
     nuevoEmpleado->id=1000+rand()%1999;
     strcpy(nuevoEmpleado->departamento, "Recursos Humanos"); // Se puede modificar
@@ -38,7 +39,7 @@ void capturarEmpleado(Empleados *empleado)
     printf("\nIngresa tu edad: ");
     scanf("%d", &empleado->edad);
     getchar();
-    printf("\n¿Cuál es tu género? (Masculino/Femenino/Otro): ");//Se eagrego
+    printf("\n¿Cuál es tu género? (Masculino/Femenino/Otro): ");
     fgets(empleado->genero, MAX_TEXTO, stdin);
     printf("\nPuesto al que deseas postularte: ");
     fgets(empleado->puesto, MAX_TEXTO, stdin);
@@ -48,21 +49,24 @@ void capturarEmpleado(Empleados *empleado)
     getchar();
     fgets(empleado->telefono, MAX_TEXTO, stdin);
     printf("\n¿En qué estado resides?: ");
-    fgets(empleado->estado, MAX_TEXTO, stdin);//Se agrego
+    fgets(empleado->estado, MAX_TEXTO, stdin);
     
+
+
 }
 void listarEmpleado(Empleados empleado)
 {
     printf("\nNombre: %s", empleado.nombre);
-    printf("Edad: %d", empleado.edad);//se agrego
-    printf("Género: %s", empleado.genero);//Se egrego
-    printf("\nID: %d", empleado.id);
+    printf("Edad: %d", empleado.edad);
+    printf("\nGénero: %s", empleado.genero);
+    printf("ID: %d", empleado.id);
     printf("\nPuesto: %s", empleado.puesto);
     printf("Salario: %.2f", empleado.salario);
     printf("\nTelefono: %s", empleado.telefono);
-    printf("\nEstado: %s", empleado.estado);
+    printf("Estado: %s", empleado.estado);
     printf("\nDepartamento: %s", empleado.departamento);
    
+
     printf("\n====================================================\n");
 }
 void encuestaEmpleado(Empleados *empleado)
@@ -91,7 +95,7 @@ void encuestaEmpleado(Empleados *empleado)
     scanf("%d", &k);
     *(empleado->respuestas+i) = (k < 6) ? 0 : 1;
 }
-//Se agrego esto 
+//Agregado 
 void mostrarEdadRango(ColaCircular *colaC) {
     if (validarVacio(*colaC)) {
         printf("No hay datos en la cola.\n");
@@ -103,7 +107,7 @@ void mostrarEdadRango(ColaCircular *colaC) {
     if (colaC->h <= colaC->t) {
         for (int i = colaC->h; i <= colaC->t; i++) {
             int edad = colaC->arrCola[i].edad;
-            if (edad >= 17 && edad <= 45) {
+            if (edad >= 25 && edad <= 45) {
                 enRango++;
             }
             total++;
@@ -111,14 +115,14 @@ void mostrarEdadRango(ColaCircular *colaC) {
     } else {
         for (int i = colaC->h; i < colaC->max; i++) {
             int edad = colaC->arrCola[i].edad;
-            if (edad >= 17 && edad <= 45) {
+            if (edad >= 25 && edad <= 45) {
                 enRango++;
             }
             total++;
         }
         for (int i = 0; i <= colaC->t; i++) {
             int edad = colaC->arrCola[i].edad;
-            if (edad >= 17 && edad <= 45) {
+            if (edad >= 25 && edad <= 45) {
                 enRango++;
             }
             total++;
@@ -127,9 +131,8 @@ void mostrarEdadRango(ColaCircular *colaC) {
 
     float porcentaje = total > 0 ? ((float)enRango / total) * 100 : 0;
 
-    printf("\nCantidad de empleados entre 17 y 45 años: %d de %d (%.2f%%)\n", enRango, total, porcentaje);
+    printf("\nCantidad de empleados entre 25 y 45 años: %d empleados de %d (%.2f%%)\n", enRango, total, porcentaje);
 }
-//Se agregaron 
 void mostrarEstados(ColaCircular *colaC) {
     if (validarVacio(*colaC)) {
         printf("\nNo hay empleados registrados.\n");
@@ -202,7 +205,6 @@ void mostrarGeneros(ColaCircular *colaC) {
         printf(" - %s: %d empleados\n", generosUnicos[k], conteoGeneros[k]);
     }
 }
-
 void liberarEmpleados(Empleados *empleado)
 {
     free(empleado->respuestas);
