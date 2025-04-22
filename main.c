@@ -51,6 +51,9 @@ int main()
                 mostrarPorcentajes(a, r); // se va a llamar la funcion para mostrar la primera estadistica __________________________________________________________________________
                 mostrarPromedio(colaEmpleado);
                 promedioSalario(colaEmpleado);// hay qe meter estas estadisticas al archivo txt e imprimirlo 
+                mostrarEdadRango(colaEmpleado);//rango de edades de 17 a 45
+                mostrarEstados(colaEmpleado);//Estado de origen 
+                mostrarGeneros(colaEmpleado);//Genero de los empleados 
         } 
     }while(opcion!=8); //Se va a ir modificando
     if(colaEmpleado->h<=colaEmpleado->t)
