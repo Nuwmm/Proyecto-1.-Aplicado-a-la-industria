@@ -18,7 +18,7 @@ int main()
 
     do
     {
-        printf("\n====Sistema de Gestion de Solicitudes de Empleo====\n");
+        printf("\n\n====Sistema de Gestion de Solicitudes de Empleo====\n");
         opcion = desplegarMenu("\n1)Ingresar un nuevo empleado\n2)Realizar encuesta\n3)Realizar validacion\n4)Listar empleados\n5)Empleados ACEPTADOS\n6)Empleados RECHAZADOS\n7)Mostrar las estadisticas de los empleados\n8)Salir\n\nOpcion: ", 8);
         switch (opcion) // se le agregó al switch una opcion mas para la funcion estadistica, de momento solo va a ser una pero se le van a meter mas. _____________________________________________________________________________________________
         {
