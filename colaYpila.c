@@ -253,7 +253,6 @@ void mostrarPorcentajes(int aceptados, int rechazados)// funcion que saca el por
     printf("La cantidad de personas aceptadas fue de %d, que corresponde al  (%.2f%%) de los candidatos.\n", aceptados, porcentajeAceptados);
     printf("La cantidad de personas rechazadas fue de  %d, que corresponde al  (%.2f%%) de los encuestados.\n", rechazados, porcentajeRechazados);
 }
-
 void mostrarPromedio(ColaCircular *colaC) {
     if (validarVacio(*colaC)) {
         printf("No hay datos en la cola.\n");
@@ -277,9 +276,8 @@ void mostrarPromedio(ColaCircular *colaC) {
         }
     }
     suma=(float)suma / contador;
-    printf("La media de las edades entre los entrevistados es de %f años de edad.", suma);
+    printf("\nLa media de las edades entre los entrevistados es de %f años de edad.", suma);
 } // probar la funcion con el flotamte y entero en contador y suma 
-
 void promedioSalario(ColaCircular *colaC) {
     if (validarVacio(*colaC)) {
         printf("No hay datos en la cola.\n");
@@ -303,5 +301,5 @@ void promedioSalario(ColaCircular *colaC) {
         }
     }
     suma=(float)suma / contador;
-    printf("La media del salario anhelado entre los entrevistados es de %f pesos.", suma);
+    printf("\nLa media del salario anhelado entre los entrevistados es de %f pesos.", suma);
 }
