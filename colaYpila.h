@@ -15,6 +15,8 @@ typedef struct
     char *telefono;
     char *departamento;
     int *respuestas;
+    char *estado;//se agrego
+    char *genero;//se agrego
 } Empleados;
 
 typedef struct {
