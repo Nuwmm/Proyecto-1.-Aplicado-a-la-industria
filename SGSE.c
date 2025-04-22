@@ -77,6 +77,44 @@ void encuestaEmpleado(Empleados *empleado)
     scanf("%d", &k);
     *(empleado->respuestas+i) = (k < 6) ? 0 : 1;
 }
+//Se agrego esto 
+void mostrarEdadRango(ColaCircular *colaC) {
+    if (validarVacio(*colaC)) {
+        printf("No hay datos en la cola.\n");
+        return;
+    }
+
+    int enRango = 0, total = 0;
+    
+    if (colaC->h <= colaC->t) {
+        for (int i = colaC->h; i <= colaC->t; i++) {
+            int edad = colaC->arrCola[i].edad;
+            if (edad >= 17 && edad <= 45) {
+                enRango++;
+            }
+            total++;
+        }
+    } else {
+        for (int i = colaC->h; i < colaC->max; i++) {
+            int edad = colaC->arrCola[i].edad;
+            if (edad >= 17 && edad <= 45) {
+                enRango++;
+            }
+            total++;
+        }
+        for (int i = 0; i <= colaC->t; i++) {
+            int edad = colaC->arrCola[i].edad;
+            if (edad >= 17 && edad <= 45) {
+                enRango++;
+            }
+            total++;
+        }
+    }
+
+    float porcentaje = total > 0 ? ((float)enRango / total) * 100 : 0;
+
+    printf("\nCantidad de empleados entre 17 y 45 años: %d de %d (%.2f%%)\n", enRango, total, porcentaje);
+}
 
 void liberarEmpleados(Empleados *empleado)
 {
