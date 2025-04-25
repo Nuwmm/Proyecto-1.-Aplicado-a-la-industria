@@ -303,3 +303,74 @@ void promedioSalario(ColaCircular *colaC) {
     suma=(float)suma / contador;
     printf("\nLa media del salario anhelado entre los entrevistados es de %f pesos.", suma);
 }
+void salariosExpec(ColaCircular *colaC) {
+    if (validarVacio(*colaC)) {
+        printf("No hay datos en la cola.\n");
+        exit;
+    }
+    printf("El salario minimo dispuesto por la empresea es alrededor de 4500 pesos\n");
+    int salarioExpectativaAlta=0, salarioExpectativaBaja=0;
+    float salarioAlt=0, salarioBa=0, totalSA=0, totalSB=0, promedioSA=0, promedioSB=0;
+    if (colaC->h <= colaC->t) {
+        for (int i = colaC->h; i <= colaC->t; i++) {
+            int salarioRegistrado=colaC->arrCola[i].salario; //una variable que nos permita ingresar facilmente a los valores de la cola
+            if(salarioRegistrado>10000 &&salarioRegistrado<=20000){ //el if sera un parametro que dirija los salarios con expectativa alta
+                salarioAlt=((float)(salarioRegistrado-4500)/4500)*100;
+                totalSA+=salarioAlt; //variable que acumule los porcentajes para posteriormente saber que porcentaje de mas quieren ganar sobre salario, es decir 8500 salario bajo, al aplicar este codigo obtendremos que querra ganar un 30% mas sobre el salario minimo
+                salarioExpectativaAlta++;
+                promedioSA=totalSA/salarioExpectativaAlta;
+            }else if(salarioRegistrado>=5000 && salarioRegistrado<10000){
+                salarioBa=((float)(salarioRegistrado-4500)/4500)*100;
+                totalSB+=salarioBa;
+                salarioExpectativaBaja++;
+                promedioSB=totalSB/salarioExpectativaBaja;
+
+            }
+            
+            
+        }
+    } else {
+        for (int i = colaC->h; i < colaC->max; i++) {
+            int salarioRegistrado=colaC->arrCola[i].salario;
+            if(salarioRegistrado>10000 &&salarioRegistrado<=20000){
+                salarioAlt=((float)(salarioRegistrado-4500)/4500)*100;
+                totalSA+=salarioAlt;
+                salarioExpectativaAlta++;
+                promedioSA=totalSA/salarioExpectativaAlta;
+            }else if(salarioRegistrado>=5000 && salarioRegistrado<10000){
+                salarioBa=((float)(salarioRegistrado-4500)/4500)*100;
+                totalSB+=salarioBa;
+                salarioExpectativaBaja++;
+                promedioSB=totalSB/salarioExpectativaBaja;
+
+            }
+            
+        }
+        for (int i = 0; i <= colaC->t; i++) {
+            int salarioRegistrado=colaC->arrCola[i].salario;
+            if(salarioRegistrado>10000 &&salarioRegistrado<=20000){
+                salarioAlt=((float)(salarioRegistrado-4500)/4500)*100;
+                totalSA+=salarioAlt;
+                salarioExpectativaAlta++;
+                promedioSA=totalSA/salarioExpectativaAlta;
+
+            }else if(salarioRegistrado>=5000 && salarioRegistrado<10000){
+                salarioBa=((float)(salarioRegistrado-4500)/4500)*100;
+                totalSB+=salarioBa;
+                salarioExpectativaBaja++;
+                promedioSB=totalSB/salarioExpectativaBaja;
+            }
+            
+            
+        }
+    }
+    if(totalSA!=0){
+    printf("\nSalarios con expectativa entre el 10 y 20 mil pesos: %d\n", salarioExpectativaAlta);
+    printf("\nEn total ganan un porcentaje total mas del salario minimo de la empresa entre 10-20 mil pesos es del: %.2f\n", promedioSA);}
+    else printf("No ingresaste ningun salario que cumple este parametro de 10-20 mil pesos");
+    if(salarioBa!=0){
+    printf("\nSalarios con expectativa entre 5 a 10 a mil pesos: %d\n", salarioExpectativaBaja);
+    printf("\nEn total ganan un porcentaje total mas del salario minimo de la empresa entre 5-10 mil pesos es del: %.2f\n", promedioSB);}
+    else printf("No ingresaste ningun salario que cumple el parametro de 5-10 mil pesos");
+
+}
