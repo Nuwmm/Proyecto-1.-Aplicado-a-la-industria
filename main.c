@@ -54,6 +54,7 @@ int main()
                 mostrarEdadRango(colaEmpleado);//rango de edades de 17 a 45
                 mostrarEstados(colaEmpleado);//Estado de origen 
                 mostrarGeneros(colaEmpleado);//Genero de los empleados 
+                salariosExpec(colaEmpleado); //Porcentajes que indican cuanto porcentaje ganan de mas sobre respectivamente sobre el salario minimo
         } 
     }while(opcion!=8); //Se va a ir modificando
     if(colaEmpleado->h<=colaEmpleado->t)
