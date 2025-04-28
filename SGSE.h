@@ -24,8 +24,5 @@ void capturarEmpleado(Empleados *empleado);
 void listarEmpleado(Empleados empleado);
 void liberarEmpleados(Empleados *empleado);
 void encuestaEmpleado(Empleados *empleado);
-void mostrarEdadRango(ColaCircular *colaC);//Se agrego para el rango de 17 a 45 
-void mostrarGeneros(ColaCircular *colaC);
-void mostrarEstados(ColaCircular *colaC);
 
 #endif // SGSE_H_INCLUDED
