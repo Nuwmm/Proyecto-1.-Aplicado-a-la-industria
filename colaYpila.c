@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "SGSE.h"
 #include "colaYpila.h"
 
@@ -146,10 +147,23 @@ void encuesta(ColaCircular *colaC)
 {
     int i;
     if (!validarVacio(*colaC)){
-        for(int i=colaC->h; i<=colaC->t; i++)
-        {
-            printf("\n\tEncuesta: %s\n", colaC->arrCola[i].nombre);
-            encuestaEmpleado(&colaC->arrCola[i]);
+        if(colaC->h <= colaC->t){
+            for(int i=colaC->h; i<=colaC->t; i++)
+            {
+                printf("\n\tEncuesta: %s\n", colaC->arrCola[i].nombre);
+                encuestaEmpleado(&colaC->arrCola[i]);
+            }
+        }
+        else{
+            for(int i=colaC->h; i<=colaC->max-1; i++)
+            {
+                printf("\n\tEncuesta: %s\n", colaC->arrCola[i].nombre);
+                encuestaEmpleado(&colaC->arrCola[i]);
+            }
+            for(int i=0; i<=colaC->t; i++){
+                printf("\n\tEncuesta: %s\n", colaC->arrCola[i].nombre);
+                encuestaEmpleado(&colaC->arrCola[i]);
+            }
         }
     }
     else
@@ -160,7 +174,6 @@ void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechaz
 {   
     int r = 0, a = 0; // Contadores
     int rechazado;
-
     if(!validarVacio(*colaC))
     {
         if(colaC->h <= colaC->t) {
@@ -186,7 +199,7 @@ void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechaz
         }
         else
         {
-            for(int i = colaC->h; i <= colaC->max; i++)
+            for(int i = colaC->h; i <= colaC->max-1; i++)
             {
                 rechazado = 1;
                 for(int j = 0; j < MAX_ENCUESTA; j++)
@@ -202,10 +215,9 @@ void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechaz
                 if (rechazado)
                 {
                     push(colaC->arrCola[i], pilaAceptados);
-                    a++;
+                    (*aceptados)++;
                 }
             }
-
             for (int i = 0; i <= colaC->t; i++)
             {
                 rechazado = 1;
@@ -226,7 +238,6 @@ void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechaz
                 }
             }
         }
-
         // Mostrar resultados
         printf("Total aceptados: %d\n", *aceptados); // se imprime la cantidad de rechazados y aceptados 
         printf("Total rechazados: %d\n", *rechazados);
@@ -237,6 +248,15 @@ void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechaz
     }
 }
 
+//ESTADISTICAS
+void aceptadosYrechazados(Pila pilaAceptados, Pila pilaRechazados){
+    printf("\nEmpleados aceptados\n");
+    listarPila(pilaAceptados);
+    printf("\n==================================================================================\n");
+    printf("\nEmpleados rechazados\n");
+    listarPila(pilaRechazados);
+}
+
 void mostrarPorcentajes(int aceptados, int rechazados)// funcion que saca el porcentaje de rechazados y aceptados segun la cantidad de encuestados. 
 {
     int total = aceptados + rechazados;
@@ -245,14 +265,13 @@ void mostrarPorcentajes(int aceptados, int rechazados)// funcion que saca el por
         printf("No hay candidatos evaluados.\n");
         return;
     }
-
     float porcentajeAceptados =  (float)aceptados / total * 100;
     float porcentajeRechazados = (float)rechazados / total * 100;
-
     printf("Total evaluados: %d\n", total);
     printf("La cantidad de personas aceptadas fue de %d, que corresponde al  (%.2f%%) de los candidatos.\n", aceptados, porcentajeAceptados);
     printf("La cantidad de personas rechazadas fue de  %d, que corresponde al  (%.2f%%) de los encuestados.\n", rechazados, porcentajeRechazados);
 }
+
 void mostrarPromedio(ColaCircular *colaC) {
     if (validarVacio(*colaC)) {
         printf("No hay datos en la cola.\n");
@@ -278,6 +297,7 @@ void mostrarPromedio(ColaCircular *colaC) {
     suma=(float)suma / contador;
     printf("\nLa media de las edades entre los entrevistados es de %f años de edad.", suma);
 } // probar la funcion con el flotamte y entero en contador y suma 
+
 void promedioSalario(ColaCircular *colaC) {
     if (validarVacio(*colaC)) {
         printf("No hay datos en la cola.\n");
@@ -303,6 +323,7 @@ void promedioSalario(ColaCircular *colaC) {
     suma=(float)suma / contador;
     printf("\nLa media del salario anhelado entre los entrevistados es de %f pesos.", suma);
 }
+
 void salariosExpec(ColaCircular *colaC) {
     if (validarVacio(*colaC)) {
         printf("No hay datos en la cola.\n");
@@ -324,7 +345,6 @@ void salariosExpec(ColaCircular *colaC) {
                 totalSB+=salarioBa;
                 salarioExpectativaBaja++;
                 promedioSB=totalSB/salarioExpectativaBaja;
-
             }
             
             
@@ -342,7 +362,6 @@ void salariosExpec(ColaCircular *colaC) {
                 totalSB+=salarioBa;
                 salarioExpectativaBaja++;
                 promedioSB=totalSB/salarioExpectativaBaja;
-
             }
             
         }
@@ -372,5 +391,99 @@ void salariosExpec(ColaCircular *colaC) {
     printf("\nSalarios con expectativa entre 5 a 10 a mil pesos: %d\n", salarioExpectativaBaja);
     printf("\nEn total ganan un porcentaje total mas del salario minimo de la empresa entre 5-10 mil pesos es del: %.2f\n", promedioSB);}
     else printf("No ingresaste ningun salario que cumple el parametro de 5-10 mil pesos");
+}
 
+void mostrarEdadRango(ColaCircular *colaC) {
+    if (validarVacio(*colaC)) {
+        printf("No hay datos en la cola.\n");
+        return;
+    }
+    int enRango = 0, total = 0;
+    if (colaC->h <= colaC->t) {
+        for (int i = colaC->h; i <= colaC->t; i++) {
+            int edad = colaC->arrCola[i].edad;
+            if (edad >= 25 && edad <= 45) {
+                enRango++;
+            }
+            total++;
+        }
+    } else {
+        for (int i = colaC->h; i < colaC->max; i++) {
+            int edad = colaC->arrCola[i].edad;
+            if (edad >= 25 && edad <= 45) {
+                enRango++;
+            }
+            total++;
+        }
+        for (int i = 0; i <= colaC->t; i++) {
+            int edad = colaC->arrCola[i].edad;
+            if (edad >= 25 && edad <= 45) {
+                enRango++;
+            }
+            total++;
+        }
+    }
+    float porcentaje = total > 0 ? ((float)enRango / total) * 100 : 0;
+    printf("\nCantidad de empleados entre 25 y 45 años: %d empleados de %d (%.2f%%)\n", enRango, total, porcentaje);
+}
+
+void mostrarEstados(ColaCircular *colaC) {
+    if (validarVacio(*colaC)) {
+        printf("\nNo hay empleados registrados.\n");
+        return;
+    }
+    printf("\n=== Estados de residencia de los empleados ===\n");
+    char estadosUnicos[100][MAX_TEXTO]; // máximo 100 estados únicos
+    int cantidadEstados = 0;
+    int i = colaC->h;
+    while (1) { 
+        int yaExiste = 0;
+        for (int j = 0; j < cantidadEstados; j++) {
+            if (strcmp(estadosUnicos[j], colaC->arrCola[i].estado) == 0) {
+                yaExiste = 1;
+                break;
+            }
+        }
+        if (!yaExiste) {
+            strcpy(estadosUnicos[cantidadEstados], colaC->arrCola[i].estado);
+            cantidadEstados++;
+        }
+        if (i == colaC->t) break;
+        i = (i + 1) % colaC->max;
+    }
+    for (int k = 0; k < cantidadEstados; k++) {
+        printf(" - %s", estadosUnicos[k]);
+    }
+}
+
+void mostrarGeneros(ColaCircular *colaC) {
+    if (validarVacio(*colaC)) {
+        printf("\nNo hay empleados registrados.\n");
+        return;
+    }
+    printf("\n=== Géneros de los empleados registrados ===\n");
+    char generosUnicos[10][MAX_TEXTO]; // máximo 10 tipos de género únicos
+    int conteoGeneros[10] = {0};
+    int cantidadGeneros = 0;
+    int i = colaC->h;
+    while (1) {
+        int encontrado = 0;
+        for (int j = 0; j < cantidadGeneros; j++) {
+            if (strcmp(generosUnicos[j], colaC->arrCola[i].genero) == 0) {
+                conteoGeneros[j]++;
+                encontrado = 1;
+                break;
+            }
+        }
+        if (!encontrado) {
+            strcpy(generosUnicos[cantidadGeneros], colaC->arrCola[i].genero);
+            conteoGeneros[cantidadGeneros] = 1;
+            cantidadGeneros++;
+        }
+        if (i == colaC->t) break;
+        i = (i + 1) % colaC->max;
+    }
+    for (int k = 0; k < cantidadGeneros; k++) {
+        printf(" - %s: %d empleados\n", generosUnicos[k], conteoGeneros[k]);
+    }
 }

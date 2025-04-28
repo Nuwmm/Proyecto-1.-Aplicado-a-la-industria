@@ -28,6 +28,7 @@ Empleados *inicializarEmpleados()
     strcpy(nuevoEmpleado->departamento, "Recursos Humanos"); // Se puede modificar
     return nuevoEmpleado;
 }
+
 void capturarEmpleado(Empleados *empleado)
 {
     getchar();
@@ -48,6 +49,7 @@ void capturarEmpleado(Empleados *empleado)
     printf("\n¿En qué estado resides?: ");
     fgets(empleado->estado, MAX_TEXTO, stdin);
 }
+
 void listarEmpleado(Empleados empleado)
 {
     printf("\nNombre: %s", empleado.nombre);
@@ -61,6 +63,7 @@ void listarEmpleado(Empleados empleado)
     printf("\nDepartamento: %s", empleado.departamento);
     printf("\n====================================================\n");
 }
+
 void encuestaEmpleado(Empleados *empleado)
 {
     int i=0, k;

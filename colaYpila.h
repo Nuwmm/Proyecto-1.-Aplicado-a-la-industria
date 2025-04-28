@@ -49,14 +49,20 @@ void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechaz
 //OPERACION DEL TAD PILA
 void push(Empleados dato, Pila *pila);
 Empleados pop(Pila *pila);
-void mostrarPorcentajes(int aceptados, int rechazados);// se agrega la funcion para mostra la primera estadisticaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-void mostrarPromedio(ColaCircular *colaC);// se agregó la funcion para dar el promedio de las edades de los candidatos___________________________________________________
-void promedioSalario(ColaCircular *colaC);
-void salariosExpec(ColaCircular *colaC);
 //OPERACIONES AUXILIARES TAD PILA
 Pila *crearPila(int max);
 int pilaVacia(Pila pila);
 void listarPila(Pila pila);
 void liberarMemoriaPila(Pila *pila);
+
+//ESTADISTICAS
+void mostrarPorcentajes(int aceptados, int rechazados);// se agrega la funcion para mostra la primera estadisticaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+void mostrarPromedio(ColaCircular *colaC);// se agregó la funcion para dar el promedio de las edades de los candidatos___________________________________________________
+void aceptadosYrechazados(Pila pilaAceptados, Pila pilaRechazados);
+void promedioSalario(ColaCircular *colaC);
+void salariosExpec(ColaCircular *colaC);
+void mostrarEdadRango(ColaCircular *colaC);//Se agrego para el rango de 17 a 45 
+void mostrarGeneros(ColaCircular *colaC);
+void mostrarEstados(ColaCircular *colaC);
 
 #endif // COLAYPILA_H_INCLUDED
