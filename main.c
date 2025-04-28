@@ -14,7 +14,21 @@ int main()
     Pila *pilaAceptados = crearPila(numEmpleados);
     Pila *pilaRechazados = crearPila(numEmpleados);
     int a = 0, r = 0; // contadores para los porcentajes de aceptados y rechazados 
+     FILE *archivo;
+    char linea[100];
+
+    archivo = fopen("empleo.txt", "r"); //Se abrió el archivo con r para que solo sea lectura y no se modifique o se borre. 
+
+    if (archivo == NULL) {
+        printf("El archivo no existe.\n");
+        return 1;
+    }
     
+    while (fgets(linea, sizeof(linea), archivo)) {
+        printf("%s", linea); // se mandó a imprimir todo el contenido del archivo txt 
+    }
+
+    fclose(archivo); // archivo de referencia de habilidades y vacantes 
 
     do
     {
