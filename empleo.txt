@@ -1,0 +1,18 @@
+VACANTES DISPONIBLES:
+1. Asistente de pruebas de software 
+2. Auxiliar de control de versiones
+3. Ingeniero de redes
+4. Soporte técnico
+5. Especialista en Ciberseguridad
+
+HABILIDADES NECESARIAS PARA LAS 5 VACANTES :
+1. Programación en C/C++
+2. Manejo de bases de datos
+3. Resolución de problemas
+4. Trabajo en equipo
+5. Comunicación efectiva
+6. Redes y protocolos
+7. Seguridad informática
+8. Administración de sistemas
+9. Pensamiento crítico
+10. Documentación técnica
