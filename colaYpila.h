@@ -64,5 +64,7 @@ void salariosExpec(ColaCircular *colaC);
 void mostrarEdadRango(ColaCircular *colaC);//Se agrego para el rango de 17 a 45 
 void mostrarGeneros(ColaCircular *colaC);
 void mostrarEstados(ColaCircular *colaC);
+void carrera(ColaCircular *cola);
+void generoMayorP(ColaCircular *colaC);
 
 #endif // COLAYPILA_H_INCLUDED
