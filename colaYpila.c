@@ -487,3 +487,133 @@ void mostrarGeneros(ColaCircular *colaC) {
         printf(" - %s: %d empleados\n", generosUnicos[k], conteoGeneros[k]);
     }
 }
+void carrera(ColaCircular *colaC){
+   int i;
+   int v1=0, v2=0, v3=0, v4=0, v5=0;
+     //crear tres variables mas para los otros tres contadores de los puestos de empleo
+   if (!validarVacio(*colaC)){
+        if (colaC->h<= colaC->t){
+           for (i=colaC->h; i<=colaC->t ; i++){
+                if (colaC->arrCola[i].puesto[0] == '1'){  // Accedemos al primer carácter del string sea mayuuscula o minuscula
+                 v1++;
+                }
+                if (colaC->arrCola[i].puesto[0] == '2'  ) {
+                 v2++;
+                }
+                if (colaC->arrCola[i].puesto[0] == '3'){
+                    v3++;
+                }
+                if (colaC->arrCola[i].puesto[0] == '4'){
+                    v4++;
+                }
+                if (colaC->arrCola[i].puesto[0] == '5'){
+                    v5++;
+                }
+           }
+             printf("Solicitudes para asistente de pruebas de software: %d\n", v1);
+             printf("Solicitudes para ingeniero de redes : %d\n", v2);
+             printf("Solicitudes para Auxiliar de control de versiones %d\n", v3);
+             printf("Solicitudes para Soporte Tecnico %d\n", v4);
+             printf("Solicitudes para Especialista en Ciberseguirdad %d\n", v5);
+        }
+
+        else {
+            for (i=colaC->h; i<colaC->max; i++){
+                if (colaC->arrCola[i].puesto[0] == '1'){  // Accedemos al primer carácter del string sea mayuuscula o minuscula
+                 v1++;
+                }
+                if (colaC->arrCola[i].puesto[0] == '2'  ) {
+                 v2++;
+                }
+                if (colaC->arrCola[i].puesto[0] == '3'){
+                    v3++;
+                }
+                if (colaC->arrCola[i].puesto[0] == '4'){
+                    v4++;
+                }
+                if (colaC->arrCola[i].puesto[0] == '5'){
+                    v5++;
+                }
+            }
+            for (i=0; i<=colaC->t; i++){
+               if (colaC->arrCola[i].puesto[0] == '1'){  // Accedemos al primer carácter del string sea mayuuscula o minuscula
+                 v1++;
+                }
+                if (colaC->arrCola[i].puesto[0] == '2'  ) {
+                 v2++;
+                }
+                if (colaC->arrCola[i].puesto[0] == '3'){
+                    v3++;
+                }
+                if (colaC->arrCola[i].puesto[0] == '4'){
+                    v4++;
+                }
+                if (colaC->arrCola[i].puesto[0] == '5'){
+                    v5++;
+                }
+            }
+              printf("Solicitudes para asistente de pruebas de software: %d\n", v1);
+              printf("Solicitudes para ingeniero de redes : %d\n", v2);
+              printf("Solicitudes para Auxiliar de control de versiones %d\n", v3);
+              printf("Solicitudes para Soporte Tecnico %d\n", v4);
+              printf("Solicitudes para Ciberseguirdad%d\n", v5);
+
+        }
+   }else{
+        printf("  No hay datos...");
+   }
+   }
+void generoMayorP(ColaCircular *colaC){
+     if (validarVacio(*colaC)) {
+        printf("No hay datos en la cola.\n");
+        exit;
+    }
+    float sumaM = 0.0, sumaF=0.0;
+    int contadorM = 0, contadorF=0;
+    if (colaC->h <= colaC->t) {
+        for (int i = colaC->h; i <= colaC->t; i++) {
+            if(colaC->arrCola[i].genero[0]=='M'||colaC->arrCola[i].genero[0]=='m'){
+                sumaM += colaC->arrCola[i].salario;
+                    contadorM++;
+            }
+            else if(colaC->arrCola[i].genero[0]=='F' || colaC->arrCola[i].genero[0]=='f'){
+                    sumaF += colaC->arrCola[i].salario;
+                    contadorF++;
+                }
+        }
+    } else {
+        for (int i = colaC->h; i < colaC->max; i++) {
+            if(colaC->arrCola[i].genero[0]=='M'||colaC->arrCola[i].genero[0]=='m'){
+                sumaM += colaC->arrCola[i].salario;
+                    contadorM++;
+            }
+            else if(colaC->arrCola[i].genero[0]=='F' || colaC->arrCola[i].genero[0]=='f'){
+                    sumaF += colaC->arrCola[i].salario;
+                    contadorF++;
+                }
+        }
+        for (int i = 0; i <= colaC->t; i++) {
+            if(colaC->arrCola[i].genero[0]=='M'||colaC->arrCola[i].genero[0]=='m'){
+                sumaM += colaC->arrCola[i].salario;
+                    contadorM++;
+            }
+            else if(colaC->arrCola[i].genero[0]=='F' || colaC->arrCola[i].genero[0]=='f'){
+                    sumaF += colaC->arrCola[i].salario;
+                    contadorF++;
+                }
+        }
+    }
+    if(sumaM>sumaF){
+            sumaM=(float)sumaM/ contadorM;
+            printf("El genero con mayor expectativa salarial es el masculino con: %.2f", sumaM);
+
+
+        } else
+            if(sumaF>sumaM){
+            sumaF=(float)sumaF/ contadorF;
+            printf("El genero con mayor expectativa salarial es el femenino con: %.2f", sumaF);
+
+
+        }
+}
+
