@@ -99,6 +99,8 @@ int main()
                 mostrarEstados(colaEmpleado);//Estado de origen 
                 mostrarGeneros(colaEmpleado);//Genero de los empleados 
                 salariosExpec(colaEmpleado); //Porcentajes que indican cuanto porcentaje ganan de mas sobre respectivamente sobre el salario minimo
+                carrera(colaEmpleado);
+                generoMayorP(colaEmpleado);
         } 
     }while(opcion!=7); //Se va a ir modificando
     if(colaEmpleado->h<=colaEmpleado->t)
