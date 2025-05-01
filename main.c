@@ -14,7 +14,7 @@ int main()
     Pila *pilaAceptados = crearPila(numEmpleados);
     Pila *pilaRechazados = crearPila(numEmpleados);
     int a = 0, r = 0; // contadores para los porcentajes de aceptados y rechazados 
-     FILE *archivo;
+    FILE *archivo;
     char linea[100];
 
     archivo = fopen("empleo.txt", "r"); //Se abrió el archivo con r para que solo sea lectura y no se modifique o se borre. 

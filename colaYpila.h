@@ -64,7 +64,7 @@ void aceptadosYrechazados(Pila pilaAceptados, Pila pilaRechazados, FILE *archivo
 void promedioSalario(ColaCircular *colaC, FILE *archivo);
 void salariosExpec(ColaCircular *colaC, FILE *archivo);
 void mostrarEdadRango(ColaCircular *colaC, FILE *archivo);//Se agrego para el rango de 17 a 45 
-void mostrarGeneros(ColaCircular *colaC, FILE *archivo);
+void contarGeneros(ColaCircular *colaC, FILE *archivo);
 void mostrarEstados(ColaCircular *colaC, FILE *archivo);
 void carrera(ColaCircular *cola, FILE *archivo);
 void generoMayorP(ColaCircular *colaC, FILE *archivo);
