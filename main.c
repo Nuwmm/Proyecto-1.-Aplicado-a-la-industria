@@ -97,10 +97,10 @@ int main()
                 promedioSalario(colaEmpleado);// hay qe meter estas estadisticas al archivo txt e imprimirlo 
                 mostrarEdadRango(colaEmpleado);//rango de edades de 17 a 45
                 mostrarEstados(colaEmpleado);//Estado de origen 
-                mostrarGeneros(colaEmpleado);//Genero de los empleados 
                 salariosExpec(colaEmpleado); //Porcentajes que indican cuanto porcentaje ganan de mas sobre respectivamente sobre el salario minimo
-                carrera(colaEmpleado);
-                generoMayorP(colaEmpleado);
+                contarGeneros(colaEmpleado);//Generos ingresados
+                carrera(colaEmpleado); //cantidad de postulantes respecto a un empleo o carrera
+                generoMayorP(colaEmpleado); //El genero que tiene mayor expectativa salarial
         } 
     }while(opcion!=7); //Se va a ir modificando
     if(colaEmpleado->h<=colaEmpleado->t)
