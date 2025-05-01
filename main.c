@@ -99,7 +99,7 @@ int main()
                     promedioSalario(colaEmpleado, archivo);// hay qe meter estas estadisticas al archivo txt e imprimirlo #4
                     mostrarEdadRango(colaEmpleado, archivo);//rango de edades de 17 a 45 #5
                     mostrarEstados(colaEmpleado, archivo);//Estado de origen #6
-                    mostrarGeneros(colaEmpleado, archivo);//Genero de los empleados #7
+                    contarGeneros(colaEmpleado, archivo);//Genero de los empleados #7
                     salariosExpec(colaEmpleado, archivo); //Porcentajes que indican cuanto porcentaje ganan de mas sobre respectivamente sobre el salario minimo #8
                     carrera(colaEmpleado, archivo); // #9
                     generoMayorP(colaEmpleado, archivo); // #10

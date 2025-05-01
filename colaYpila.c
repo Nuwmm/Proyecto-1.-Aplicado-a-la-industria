@@ -547,7 +547,7 @@ void carrera(ColaCircular *colaC, FILE *archivo){
                     v5++;
                 }
             }
-            fprintf(archivo, "Solicitudes para asistente de pruebas de software: %d\n", v1);
+            fprintf(archivo, "\nSolicitudes para asistente de pruebas de software: %d\n", v1);
             fprintf(archivo, "Solicitudes para ingeniero de redes : %d\n", v2);
             fprintf(archivo, "Solicitudes para Auxiliar de control de versiones %d\n", v3);
             fprintf(archivo, "Solicitudes para Soporte Tecnico %d\n", v4);
@@ -588,14 +588,14 @@ void carrera(ColaCircular *colaC, FILE *archivo){
                     v5++;
                 }
             }
-                fprintf(archivo, "Solicitudes para asistente de pruebas de software: %d\n", v1);
+                fprintf(archivo, "\nSolicitudes para asistente de pruebas de software: %d\n", v1);
                 fprintf(archivo, "Solicitudes para ingeniero de redes : %d\n", v2);
                 fprintf(archivo, "Solicitudes para Auxiliar de control de versiones %d\n", v3);
                 fprintf(archivo, "Solicitudes para Soporte Tecnico %d\n", v4);
                 fprintf(archivo, "Solicitudes para Ciberseguirdad%d\n", v5);
         }
     }else{
-        fprintf(archivo, "  No hay datos...");
+        fprintf(archivo, "\nNo hay datos...");
     }
 }
 
