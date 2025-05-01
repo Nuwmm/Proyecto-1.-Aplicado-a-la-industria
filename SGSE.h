@@ -22,6 +22,7 @@ typedef struct
 Empleados *inicializarEmpleados();
 void capturarEmpleado(Empleados *empleado);
 void listarEmpleado(Empleados empleado);
+void listarEmpleadoArchivo(Empleados empleado, FILE *archivo);
 void liberarEmpleados(Empleados *empleado);
 void encuestaEmpleado(Empleados *empleado);
 

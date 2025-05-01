@@ -20,8 +20,8 @@ int main()
     archivo = fopen("empleo.txt", "r"); //Se abrió el archivo con r para que solo sea lectura y no se modifique o se borre. 
 
     if (archivo == NULL) {
-        printf("El archivo no existe.\n");
-        return 1;
+        printf("El archivo no existe. . .\n");
+        exit (-1);
     }
     
     while (fgets(linea, sizeof(linea), archivo)) {
@@ -91,17 +91,25 @@ int main()
                 }
                 break;
             case 6:
-                mostrarPorcentajes(a, r); // se va a llamar la funcion para mostrar la primera estadistica 
-                aceptadosYrechazados(*pilaAceptados, *pilaRechazados);
-                mostrarPromedio(colaEmpleado);
-                promedioSalario(colaEmpleado);// hay qe meter estas estadisticas al archivo txt e imprimirlo 
-                mostrarEdadRango(colaEmpleado);//rango de edades de 17 a 45
-                mostrarEstados(colaEmpleado);//Estado de origen 
-                mostrarGeneros(colaEmpleado);//Genero de los empleados 
-                salariosExpec(colaEmpleado); //Porcentajes que indican cuanto porcentaje ganan de mas sobre respectivamente sobre el salario minimo
-                carrera(colaEmpleado);
-                generoMayorP(colaEmpleado);
-        } 
+                archivo=fopen("Estadisticas.txt", "w");
+                if(archivo!=NULL){
+                    mostrarPorcentajes(a, r, archivo); // se va a llamar la funcion para mostrar la primera estadistica #1
+                    aceptadosYrechazados(*pilaAceptados, *pilaRechazados, archivo); // #2
+                    mostrarPromedio(colaEmpleado, archivo); // #3
+                    promedioSalario(colaEmpleado, archivo);// hay qe meter estas estadisticas al archivo txt e imprimirlo #4
+                    mostrarEdadRango(colaEmpleado, archivo);//rango de edades de 17 a 45 #5
+                    mostrarEstados(colaEmpleado, archivo);//Estado de origen #6
+                    mostrarGeneros(colaEmpleado, archivo);//Genero de los empleados #7
+                    salariosExpec(colaEmpleado, archivo); //Porcentajes que indican cuanto porcentaje ganan de mas sobre respectivamente sobre el salario minimo #8
+                    carrera(colaEmpleado, archivo); // #9
+                    generoMayorP(colaEmpleado, archivo); // #10
+                }
+                else{
+                    printf("El archivo no existe. . .\n");
+                    exit(-1);
+                }
+                fclose(archivo);
+        }
     }while(opcion!=7); //Se va a ir modificando
     if(colaEmpleado->h<=colaEmpleado->t)
     {
@@ -119,7 +127,9 @@ int main()
     free(colaEmpleado);
     colaEmpleado=NULL;
     liberarMemoriaPila(pilaAceptados);
+    pilaAceptados=NULL;
     liberarMemoriaPila(pilaRechazados);
+    pilaRechazados=NULL;
     if(colaEmpleado==NULL && pilaAceptados==NULL && pilaRechazados==NULL)
         printf("\nMemoria liberada con exito. . .\n");
         printf("\n");

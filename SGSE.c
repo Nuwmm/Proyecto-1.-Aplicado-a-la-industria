@@ -50,6 +50,20 @@ void capturarEmpleado(Empleados *empleado)
     fgets(empleado->estado, MAX_TEXTO, stdin);
 }
 
+void listarEmpleadoArchivo(Empleados empleado, FILE *archivo)
+{
+    fprintf(archivo, "\nNombre: %s", empleado.nombre);
+    fprintf(archivo, "Edad: %d", empleado.edad);
+    fprintf(archivo, "\nGénero: %s", empleado.genero);
+    fprintf(archivo, "ID: %d", empleado.id);
+    fprintf(archivo, "\nPuesto: %s", empleado.puesto);
+    fprintf(archivo, "Salario: %.2f", empleado.salario);
+    fprintf(archivo, "\nTelefono: %s", empleado.telefono);
+    fprintf(archivo, "Estado: %s", empleado.estado);
+    fprintf(archivo, "Departamento: %s", empleado.departamento);
+    fprintf(archivo, "\n====================================================\n");
+}
+
 void listarEmpleado(Empleados empleado)
 {
     printf("\nNombre: %s", empleado.nombre);
@@ -60,7 +74,7 @@ void listarEmpleado(Empleados empleado)
     printf("Salario: %.2f", empleado.salario);
     printf("\nTelefono: %s", empleado.telefono);
     printf("Estado: %s", empleado.estado);
-    printf("\nDepartamento: %s", empleado.departamento);
+    printf("Departamento: %s", empleado.departamento);
     printf("\n====================================================\n");
 }
 
