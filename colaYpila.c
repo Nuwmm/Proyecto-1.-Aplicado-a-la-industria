@@ -323,6 +323,45 @@ void promedioSalario(ColaCircular *colaC) {
     suma=(float)suma / contador;
     printf("\nLa media del salario anhelado entre los entrevistados es de %f pesos.", suma);
 }
+void contarGeneros(ColaCircular *colaC){
+   int i;
+   int hombres = 0, mujeres = 0;
+   if (!validarVacio(*colaC)){
+        if (colaC->h<= colaC->t){
+           for (i=colaC->h; i<=colaC->t ; i++){
+                if (colaC->arrCola[i].genero[0] == 'M'|| colaC->arrCola[i].genero[0] == 'm') {  // Accedemos al primer carácter del string sea mayuuscula o minuscula 
+                 hombres++;
+                } else if (colaC->arrCola[i].genero[0] == 'F'|| colaC->arrCola[i].genero[0] == 'f') {
+                 mujeres++;
+                }
+           } 
+         printf("Hombres (M): %d\n", hombres);
+         printf("Mujeres (F): %d\n", mujeres);
+        }
+    
+        else {
+            for (i=colaC->h; i<colaC->max; i++){
+                if (colaC->arrCola[i].genero[0] == 'M'|| colaC->arrCola[i].genero[0] == 'm') {  // Accedemos al primer carácter del string sea mayuuscula o minuscula 
+                 hombres++;
+                } else if (colaC->arrCola[i].genero[0] == 'F'|| colaC->arrCola[i].genero[0] == 'f') {
+                 mujeres++;
+                }
+            }
+            for (i=0; i<=colaC->t; i++){
+               if (colaC->arrCola[i].genero[0] == 'M'|| colaC->arrCola[i].genero[0] == 'm') {  // Accedemos al primer carácter del string sea mayuuscula o minuscula 
+                 hombres++;
+                } else if (colaC->arrCola[i].genero[0] == 'F'|| colaC->arrCola[i].genero[0] == 'f') {
+                 mujeres++;
+                }
+            }
+              printf("Hombres (M): %d\n", hombres);
+              printf("Mujeres (F): %d\n", mujeres);
+        }
+   }else{
+        printf("  No hay datos...");
+   }
+   
+   }
 
 void salariosExpec(ColaCircular *colaC) {
     if (validarVacio(*colaC)) {
@@ -456,37 +495,7 @@ void mostrarEstados(ColaCircular *colaC) {
     }
 }
 
-void mostrarGeneros(ColaCircular *colaC) {
-    if (validarVacio(*colaC)) {
-        printf("\nNo hay empleados registrados.\n");
-        return;
-    }
-    printf("\n=== Géneros de los empleados registrados ===\n");
-    char generosUnicos[10][MAX_TEXTO]; // máximo 10 tipos de género únicos
-    int conteoGeneros[10] = {0};
-    int cantidadGeneros = 0;
-    int i = colaC->h;
-    while (1) {
-        int encontrado = 0;
-        for (int j = 0; j < cantidadGeneros; j++) {
-            if (strcmp(generosUnicos[j], colaC->arrCola[i].genero) == 0) {
-                conteoGeneros[j]++;
-                encontrado = 1;
-                break;
-            }
-        }
-        if (!encontrado) {
-            strcpy(generosUnicos[cantidadGeneros], colaC->arrCola[i].genero);
-            conteoGeneros[cantidadGeneros] = 1;
-            cantidadGeneros++;
-        }
-        if (i == colaC->t) break;
-        i = (i + 1) % colaC->max;
-    }
-    for (int k = 0; k < cantidadGeneros; k++) {
-        printf(" - %s: %d empleados\n", generosUnicos[k], conteoGeneros[k]);
-    }
-}
+
 void carrera(ColaCircular *colaC){
    int i;
    int v1=0, v2=0, v3=0, v4=0, v5=0;
