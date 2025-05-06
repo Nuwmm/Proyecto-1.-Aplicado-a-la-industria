@@ -6,7 +6,7 @@
 
 int main()
 {
-    int opcion, numEmpleados;
+    int opcion, numEmpleados, validarEncuesta=0;
     // SOLICITAR DATOS
     printf("\nEmpleados que se registraran: ");
     scanf("%d", &numEmpleados);
@@ -46,11 +46,20 @@ int main()
                 listar(*colaEmpleado);
                 break;
             case 2:
-                encuesta(colaEmpleado);
+                if(!validarVacio(*colaEmpleado)){
+                    encuesta(colaEmpleado);
+                    validarEncuesta=1;
+                }
+                else
+                    printf("No hay aspirantes registrados. . .");
                 break;
             case 3:
-                validarEmpleados(colaEmpleado, pilaAceptados, pilaRechazados, &a, &r);// se pasa la direccion de memoria de a y r pero son obsoletas
-                printf("\nValidacion realizada con exito. . .");
+                if(validarEncuesta){
+                    validarEmpleados(colaEmpleado, pilaAceptados, pilaRechazados, &a, &r);// se pasa la direccion de memoria de a y r pero son obsoletas
+                    printf("\nValidacion realizada con exito. . .");
+                }
+                else
+                    printf("No se ha realizado la encuesta. . .");
                 break;
             case 4:
                 listar(*colaEmpleado);
@@ -91,24 +100,29 @@ int main()
                 }
                 break;
             case 6:
-                archivo=fopen("Estadisticas.txt", "w");
-                if(archivo!=NULL){
-                    mostrarPorcentajes(a, r, archivo); // se va a llamar la funcion para mostrar la primera estadistica #1
-                    aceptadosYrechazados(*pilaAceptados, *pilaRechazados, archivo); // #2
-                    mostrarPromedio(colaEmpleado, archivo); // #3
-                    promedioSalario(colaEmpleado, archivo);// hay qe meter estas estadisticas al archivo txt e imprimirlo #4
-                    mostrarEdadRango(colaEmpleado, archivo);//rango de edades de 17 a 45 #5
-                    mostrarEstados(colaEmpleado, archivo);//Estado de origen #6
-                    contarGeneros(colaEmpleado, archivo);//Genero de los empleados #7
-                    salariosExpec(colaEmpleado, archivo); //Porcentajes que indican cuanto porcentaje ganan de mas sobre respectivamente sobre el salario minimo #8
-                    carrera(colaEmpleado, archivo); // #9
-                    generoMayorP(colaEmpleado, archivo); // #10
+                if(validarEncuesta){
+                    archivo=fopen("Estadisticas.txt", "w");
+                    if(archivo!=NULL){
+                        mostrarPorcentajes(a, r, archivo); // se va a llamar la funcion para mostrar la primera estadistica #1
+                        aceptadosYrechazados(*pilaAceptados, *pilaRechazados, archivo); // #2
+                        mostrarPromedio(colaEmpleado, archivo); // #3
+                        promedioSalario(colaEmpleado, archivo);// hay qe meter estas estadisticas al archivo txt e imprimirlo #4
+                        mostrarEdadRango(colaEmpleado, archivo);//rango de edades de 17 a 45 #5
+                        mostrarEstados(colaEmpleado, archivo);//Estado de origen #6
+                        contarGeneros(colaEmpleado, archivo);//Genero de los empleados #7
+                        salariosExpec(colaEmpleado, archivo); //Porcentajes que indican cuanto porcentaje ganan de mas sobre respectivamente sobre el salario minimo #8
+                        carrera(colaEmpleado, archivo); // #9
+                        generoMayorP(colaEmpleado, archivo); // #10
+                    }
+                    else{
+                        printf("El archivo no existe. . .\n");
+                        exit(-1);
+                    }
+                    fclose(archivo);
                 }
-                else{
-                    printf("El archivo no existe. . .\n");
-                    exit(-1);
-                }
-                fclose(archivo);
+                else
+                    printf("No se ha realizado la encuesta. . .");
+                break;
         }
     }while(opcion!=7); //Se va a ir modificando
     if(colaEmpleado->h<=colaEmpleado->t)
