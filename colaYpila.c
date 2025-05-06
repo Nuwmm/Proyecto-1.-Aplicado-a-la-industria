@@ -55,19 +55,19 @@ void listar(ColaCircular colaC){
             for (i=colaC.h; i<=colaC.t ; i++)
             {
                 printf("\n===================================\n");
-                listarEmpleado(colaC.arrCola[i]);
+                listarEmpleado(*(colaC.arrCola+i));
             }
         }
         else {
             for (i=colaC.h; i<colaC.max; i++)
             {
                 printf("\n===================================\n");
-                listarEmpleado(colaC.arrCola[i]);
+                listarEmpleado(*(colaC.arrCola+i));
             }
             for (i=0; i<=colaC.t; i++)
             {
                 printf("\n===================================\n");
-                listarEmpleado(colaC.arrCola[i]);
+                listarEmpleado(*(colaC.arrCola+i));
             }
         }
     }
@@ -82,19 +82,19 @@ void listarArchivo(ColaCircular colaC, FILE *archivo){
             for (i=colaC.h; i<=colaC.t ; i++)
             {
                 fprintf(archivo, "\n===================================\n");
-                listarEmpleadoArchivo(colaC.arrCola[i], archivo);
+                listarEmpleadoArchivo(*(colaC.arrCola+i), archivo);
             }
         }
         else {
             for (i=colaC.h; i<colaC.max; i++)
             {
                 fprintf(archivo, "\n===================================\n");
-                listarEmpleadoArchivo(colaC.arrCola[i], archivo);
+                listarEmpleadoArchivo(*(colaC.arrCola+i), archivo);
             }
             for (i=0; i<=colaC.t; i++)
             {
                 fprintf(archivo, "\n===================================\n");
-                listarEmpleadoArchivo(colaC.arrCola[i], archivo);
+                listarEmpleadoArchivo(*(colaC.arrCola+i), archivo);
             }
         }
     }
@@ -152,13 +152,13 @@ int pilaVacia(Pila pila){
 void listarPila(Pila pila){
     int i;
     for(i=pila.cima; i>=0; i--)
-        listarEmpleado(pila.arrPila[i]);
+        listarEmpleado(*(pila.arrPila+i));
 }
 
 void listarPilaArchivo(Pila pila, FILE *archivo){
     int i;
     for(i=pila.cima; i>=0; i--)
-        listarEmpleadoArchivo(pila.arrPila[i], archivo);
+        listarEmpleadoArchivo(*(pila.arrPila+i), archivo);
 }
 
 void liberarMemoriaPila(Pila *pila){
