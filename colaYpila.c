@@ -500,27 +500,32 @@ void mostrarEstados(ColaCircular *colaC, FILE *archivo) {
         fprintf(archivo, "\nNo hay empleados registrados.\n");
         return;
     }
+
     fprintf(archivo, "\n=== Estados de residencia de los empleados ===\n");
-    char estadosUnicos[100][MAX_TEXTO]; // máximo 100 estados únicos
-    int cantidadEstados = 0;
+
+    char estados[100][MAX_TEXTO];
+    int numEstados = 0;
+
     int i = colaC->h;
-    while (1) { 
-        int yaExiste = 0;
-        for (int j = 0; j < cantidadEstados; j++) {
-            if (strcmp(estadosUnicos[j], colaC->arrCola[i].estado) == 0) {
-                yaExiste = 1;
+    do {
+        int repetido = 0;
+        for (int j = 0; j < numEstados; j++) {
+            if (strcmp(estados[j], colaC->arrCola[i].estado) == 0) {
+                repetido = 1;
                 break;
             }
         }
-        if (!yaExiste) {
-            strcpy(estadosUnicos[cantidadEstados], colaC->arrCola[i].estado);
-            cantidadEstados++;
+        if (!repetido) {
+            strcpy(estados[numEstados++], colaC->arrCola[i].estado);
         }
-        if (i == colaC->t) break;
-        i = (i + 1) % colaC->max;
-    }
-    for (int k = 0; k < cantidadEstados; k++) {
-        fprintf(archivo, " - %s", estadosUnicos[k]);
+
+        i++;
+        if (i == colaC->max) i = 0;
+    } while (i != (colaC->t + 1) % colaC->max);  // Condición circular
+
+    // Imprimir los estados únicos
+    for (int i = 0; i < numEstados; i++) {
+        fprintf(archivo, " - %s", estados[i]);
     }
 }
 
