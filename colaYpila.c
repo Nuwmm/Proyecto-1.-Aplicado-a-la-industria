@@ -457,7 +457,6 @@ void salariosExpec(ColaCircular *colaC, FILE *archivo) {
 
 
         }
-    }
     if(totalSA!=0){
     fprintf(archivo, "\nLa personas que pidieron salarios entre el 10 y 20 mil pesos son: %d\n", salarioExpectativaAlta);
     fprintf(archivo, "\nEl promedio de porcentaje de expectativa alta respecto al salario minimo de las personas que ingresaron un salario entre 10-20 mil pesos es del: (%.2f%%)", promedioSA);
@@ -469,6 +468,7 @@ void salariosExpec(ColaCircular *colaC, FILE *archivo) {
     }
     else
         fprintf(archivo, "No ingresaste ningun salario que cumple el parametro de 5-10 mil pesos");
+    }
 }
 
 void mostrarEdadRango(ColaCircular *colaC, FILE *archivo) {
@@ -505,6 +505,7 @@ void mostrarEdadRango(ColaCircular *colaC, FILE *archivo) {
     fprintf(archivo, "\nCantidad de empleados entre 25 y 45 a�os: %d empleados de %d (%.2f%%)\n", enRango, total, porcentaje);
     fprintf(archivo, "======================================================================");
 }
+
 void mostrarEstados(ColaCircular *colaC, FILE *archivo) {
     if (validarVacio(*colaC)) {
         fprintf(archivo, "\nNo hay empleados registrados.\n");
@@ -538,6 +539,7 @@ void mostrarEstados(ColaCircular *colaC, FILE *archivo) {
         fprintf(archivo, " - %s", estados[i]);
     }
 }
+
 void carrera(ColaCircular *colaC, FILE *archivo){
     int i;
     int v1=0, v2=0, v3=0, v4=0, v5=0;
@@ -663,30 +665,30 @@ void generoMayorP(ColaCircular *colaC, FILE *archivo){
             fprintf(archivo, "El genero con mayor expectativa salarial es el femenino con: %.2f", sumaF);
         }
 }
-Empleados buscar(ColaCircular *colaC, int ID){
-     
+
+Empleados *buscar(ColaCircular *colaC, int ID){
     if (colaC->h <= colaC->t) {
         for (int i = colaC->h; i <= colaC->t; i++) {
             if (ID==colaC->arrCola[i].id){
-                return colaC->arrCola[i];
+                printf("\nEl empleado con el ID %d es:\n", ID);
+                return &colaC->arrCola[i];
             }
             
         }
-    
     }else{
         for(int i = colaC->h; i <= colaC->max-1; i++){
             if (ID==colaC->arrCola[i].id){
-                return colaC->arrCola[i];
-        }
+                printf("\nEl empleado con el ID %d es:\n", ID);
+                return &colaC->arrCola[i];
+            }
         }
         for(int i = 0; i <= colaC->t; i++){
             if (ID==colaC->arrCola[i].id){
-                return colaC->arrCola[i];
+                printf("\nEl empleado con el ID %d es:\n", ID);
+                return &colaC->arrCola[i];
+            }
         }
-        }
-    
-        
     }
+    printf("\nNo existe un empleado con el ID: %d . . .\n", ID);
+    return NULL;
 }
-
-

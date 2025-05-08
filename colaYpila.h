@@ -50,7 +50,7 @@ void listarArchivo(ColaCircular colaC, FILE *archivo);
 void liberarMemoriaCola(ColaCircular *colaC);
 void encuesta(ColaCircular *colaC);
 void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechazados,int *aceptados, int *rechazados);
-Empleados buscar(ColaCircular *colaC, int ID); // FUNCION BUSCAR 
+Empleados *buscar(ColaCircular *colaC, int ID); // FUNCION BUSCAR 
 
 //OPERACION DEL TAD PILA
 void push(Empleados dato, Pila *pila);

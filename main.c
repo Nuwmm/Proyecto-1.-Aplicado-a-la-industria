@@ -6,7 +6,7 @@
 
 int main()
 {
-    int opcion,opcion2, numEmpleados;
+    int opcion, opcion2, numEmpleados;
     // SOLICITAR DATOS
     printf("\nEmpleados que se registraran: ");
     scanf("%d", &numEmpleados);
@@ -91,16 +91,15 @@ int main()
                     case 7: 
                         if (!validarVacio(*colaEmpleado)) {
                             int ID;
-                            printf("Ingresa el ID de empleado:");
+                            printf("Ingresa el ID del empleado: ");
                             scanf("%d",&ID);
-                            Empleados empleado=buscar(colaEmpleado,ID);
-                            listarEmpleado(empleado);
-                           
-                        }else{
-                             printf("No hay datos en la cola.\n");
-                        }
+                            Empleados *empleado=buscar(colaEmpleado, ID);
+                            if(empleado!=NULL)
+                                listarEmpleado(*empleado);
+                        }else
+                            printf("No hay datos en la cola.\n");
                         break;
-                }   
+                }
             case 6:
                 archivo=fopen("Estadisticas.txt", "w");
                 if(archivo!=NULL){
