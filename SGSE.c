@@ -15,10 +15,7 @@ Empleados *inicializarEmpleados()
     nuevoEmpleado->puesto = (char *)calloc(MAX_TEXTO, sizeof(char));
     nuevoEmpleado->experiencia = (char *)calloc(MAX_TEXTO, sizeof(char));
     nuevoEmpleado->telefono = (char *)calloc(MAX_TEXTO, sizeof(char));
-    nuevoEmpleado->estado = (char *)calloc(MAX_TEXTO, sizeof(char));
-    if (!nuevoEmpleado->estado) exit(-1);
-    nuevoEmpleado->genero = (char *)calloc(MAX_TEXTO, sizeof(char));
-    if (!nuevoEmpleado->genero) exit(-1);
+    //se borró el genero y estado movimiento 2
     nuevoEmpleado->departamento = (char *)calloc(MAX_TEXTO, sizeof(char));
     nuevoEmpleado->respuestas = (int *)calloc(MAX_ENCUESTA, sizeof(int));
     if(!nuevoEmpleado->nombre || !nuevoEmpleado->puesto || !nuevoEmpleado->experiencia || !nuevoEmpleado->departamento || !nuevoEmpleado->respuestas)
@@ -37,8 +34,8 @@ void capturarEmpleado(Empleados *empleado)
     printf("\nIngresa tu edad: ");
     scanf("%d", &empleado->edad);
     getchar();
-    printf("\n¿Cuál es tu género? (Masculino/Femenino/Otro): ");
-    fgets(empleado->genero, MAX_TEXTO, stdin);
+    printf("\n¿Cual es tu genero? (Masculino/Femenino):");
+    fgets(empleado->INE.genero, MAX_TEXTO, stdin);
     printf("\nPuesto al que deseas postularte: ");
     fgets(empleado->puesto, MAX_TEXTO, stdin);
     printf("\nIndica tu expectativa salarial en pesos: ");
@@ -46,20 +43,20 @@ void capturarEmpleado(Empleados *empleado)
     printf("\nNumero de telefono: ");
     getchar();
     fgets(empleado->telefono, MAX_TEXTO, stdin);
-    printf("\n¿En qué estado resides?: ");
-    fgets(empleado->estado, MAX_TEXTO, stdin);
+    printf("\nEn que estado resides?: ");
+    fgets(empleado->INE.estado, MAX_TEXTO, stdin); // movimiento 3
 }
 
 void listarEmpleadoArchivo(Empleados empleado, FILE *archivo)
 {
     fprintf(archivo, "\nNombre: %s", empleado.nombre);
     fprintf(archivo, "Edad: %d", empleado.edad);
-    fprintf(archivo, "\nGénero: %s", empleado.genero);
+    fprintf(archivo, "\nG�nero: %s", empleado.INE.genero);
     fprintf(archivo, "ID: %d", empleado.id);
     fprintf(archivo, "\nPuesto: %s", empleado.puesto);
     fprintf(archivo, "Salario: %.2f", empleado.salario);
     fprintf(archivo, "\nTelefono: %s", empleado.telefono);
-    fprintf(archivo, "Estado: %s", empleado.estado);
+    fprintf(archivo, "Estado: %s", empleado.INE.estado);//movimiento 4
     fprintf(archivo, "Departamento: %s", empleado.departamento);
     fprintf(archivo, "\n====================================================\n");
 }
@@ -68,13 +65,13 @@ void listarEmpleado(Empleados empleado)
 {
     printf("\nNombre: %s", empleado.nombre);
     printf("Edad: %d", empleado.edad);
-    printf("\nGénero: %s", empleado.genero);
+    printf("\nG�nero: %s", empleado.INE.genero);
     printf("ID: %d", empleado.id);
     printf("\nPuesto: %s", empleado.puesto);
     printf("Salario: %.2f", empleado.salario);
     printf("\nTelefono: %s", empleado.telefono);
-    printf("Estado: %s", empleado.estado);
-    printf("Departamento: %s", empleado.departamento);
+    printf("Estado: %s", empleado.INE.estado);
+    printf("Departamento: %s", empleado.departamento);//movimiento 5
     printf("\n====================================================\n");
 }
 
@@ -112,7 +109,5 @@ void liberarEmpleados(Empleados *empleado)
     free(empleado->telefono);
     free(empleado->experiencia);
     free(empleado->puesto);
-    free(empleado->nombre);
-    free(empleado->estado);
-    free(empleado->genero);
+    free(empleado->nombre); //Movimiento 6
 }
