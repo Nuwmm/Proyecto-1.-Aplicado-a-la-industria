@@ -27,3 +27,4 @@ void liberarEmpleados(Empleados *empleado);
 void encuestaEmpleado(Empleados *empleado);
 
 #endif // SGSE_H_INCLUDED
+
