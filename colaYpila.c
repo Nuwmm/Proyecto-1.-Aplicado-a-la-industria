@@ -27,7 +27,7 @@ ColaCircular *crearColaCircular(int max) {
     return nuevaCola;
 }
 
-int validarEspacio(ColaCircular colaC){
+int validarEspacio(ColaCircular colaC){ // verifica si la cola esta llena si esta llena o no esta llena 
     if ((colaC.h == 0 && colaC.t == colaC.max-1)
         || (colaC.t == colaC.h-1)){
         printf("\nNo hay espacio...\n");
@@ -196,7 +196,7 @@ void encuesta(ColaCircular *colaC){
         printf("\nNo hay datos. . .");
 }
 
-void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechazados, int *aceptados, int *rechazados){   
+void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechazados, int *aceptados, int *rechazados){
     int r = 0, a = 0; // Contadores
     int rechazado;
     if(!validarVacio(*colaC))
@@ -264,7 +264,7 @@ void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechaz
             }
         }
         // Mostrar resultados
-        printf("Total aceptados: %d\n", *aceptados); // se imprime la cantidad de rechazados y aceptados 
+        printf("Total aceptados: %d\n", *aceptados); // se imprime la cantidad de rechazados y aceptados
         printf("Total rechazados: %d\n", *rechazados);
     }
     else
@@ -318,9 +318,9 @@ void mostrarPromedio(ColaCircular *colaC, FILE *archivo) {
         }
     }
     suma=(float)suma / contador;
-    fprintf(archivo, "\nLa media de las edades entre los entrevistados es de %f años de edad.", suma);
+    fprintf(archivo, "\nLa media de las edades entre los entrevistados es de %f a�os de edad.", suma);
     fprintf(archivo, "======================================================================");
-} // probar la funcion con el flotamte y entero en contador y suma 
+} // probar la funcion con el flotamte y entero en contador y suma
 
 void promedioSalario(ColaCircular *colaC, FILE *archivo) {
     if (validarVacio(*colaC)) {
@@ -355,28 +355,28 @@ void contarGeneros(ColaCircular *colaC, FILE *archivo){
     if (!validarVacio(*colaC)){
         if (colaC->h<= colaC->t){
             for (i=colaC->h; i<=colaC->t ; i++){
-                if (colaC->arrCola[i].genero[0] == 'M'|| colaC->arrCola[i].genero[0] == 'm') {  // Accedemos al primer carácter del string sea mayuuscula o minuscula 
+                if (colaC->arrCola[i].INE.genero[0] == 'M'|| colaC->arrCola[i].INE.genero[0] == 'm') {  // Accedemos al primer car�cter del string sea mayuuscula o minuscula
                     hombres++;
-                } else if (colaC->arrCola[i].genero[0] == 'F'|| colaC->arrCola[i].genero[0] == 'f') {
+                } else if (colaC->arrCola[i].INE.genero[0] == 'F'|| colaC->arrCola[i].INE.genero[0] == 'f') {
                     mujeres++;
                 }
-            } 
+            }
             fprintf(archivo, "Hombres (M): %d\n", hombres);
             fprintf(archivo, "Mujeres (F): %d\n", mujeres);
         }
-    
+
         else {
             for (i=colaC->h; i<colaC->max; i++){
-                if (colaC->arrCola[i].genero[0] == 'M'|| colaC->arrCola[i].genero[0] == 'm') {  // Accedemos al primer carácter del string sea mayuuscula o minuscula 
+                if (colaC->arrCola[i].INE.genero[0] == 'M'|| colaC->arrCola[i].INE.genero[0] == 'm') {  // Accedemos al primer car�cter del string sea mayuuscula o minuscula
                     hombres++;
-                } else if (colaC->arrCola[i].genero[0] == 'F'|| colaC->arrCola[i].genero[0] == 'f') {
+                } else if (colaC->arrCola[i].INE.genero[0] == 'F'|| colaC->arrCola[i].INE.genero[0] == 'f') {
                     mujeres++;
                 }
             }
             for (i=0; i<=colaC->t; i++){
-                if (colaC->arrCola[i].genero[0] == 'M'|| colaC->arrCola[i].genero[0] == 'm') {  // Accedemos al primer carácter del string sea mayuuscula o minuscula 
+                if (colaC->arrCola[i].INE.genero[0] == 'M'|| colaC->arrCola[i].INE.genero[0] == 'm') {  // Accedemos al primer car�cter del string sea mayuuscula o minuscula
                     hombres++;
-                } else if (colaC->arrCola[i].genero[0] == 'F'|| colaC->arrCola[i].genero[0] == 'f') {
+                } else if (colaC->arrCola[i].INE.genero[0] == 'F'|| colaC->arrCola[i].INE.genero[0] == 'f') {
                     mujeres++;
                 }
             }
@@ -411,9 +411,20 @@ void salariosExpec(ColaCircular *colaC, FILE *archivo) {
                 salarioExpectativaBaja++;
                 promedioSB=totalSB/salarioExpectativaBaja;
             }
-            
-            
+
+
         }
+        if(totalSA!=0){
+    fprintf(archivo, "\nLa personas que pidieron salarios entre el 10 y 20 mil pesos son: %d\n", salarioExpectativaAlta);
+    fprintf(archivo, "\nEl promedio de porcentaje de expectativa alta respecto al salario minimo de las personas que ingresaron un salario entre 10-20 mil pesos es del: (%.2f%%)", promedioSA);
+    } else
+        fprintf(archivo, "No ingresaste ningun salario que cumple este parametro de 10-20 mil pesos");
+    if(salarioBa!=0){
+        fprintf(archivo, "\nLas personas que pidieron salarios entre 5 a 10 a mil pesos son: %d\n", salarioExpectativaBaja);
+    fprintf(archivo, "\nEl promedio de porcentaje de expectativa baja  respecto al salario minimo de las personas que ingresaron un salario entre 5-10 mil pesos es del: (%.2f%%)", promedioSB);
+    }
+    else
+        fprintf(archivo, "\nNo ingresaste ningun salario que cumple el parametro de 5-10 mil pesos");
     } else {
         for (int i = colaC->h; i < colaC->max; i++) {
             int salarioRegistrado=colaC->arrCola[i].salario;
@@ -428,7 +439,7 @@ void salariosExpec(ColaCircular *colaC, FILE *archivo) {
                 salarioExpectativaBaja++;
                 promedioSB=totalSB/salarioExpectativaBaja;
             }
-            
+
         }
         for (int i = 0; i <= colaC->t; i++) {
             int salarioRegistrado=colaC->arrCola[i].salario;
@@ -443,20 +454,20 @@ void salariosExpec(ColaCircular *colaC, FILE *archivo) {
                 salarioExpectativaBaja++;
                 promedioSB=totalSB/salarioExpectativaBaja;
             }
-            
-            
+
+
         }
     }
     if(totalSA!=0){
-    fprintf(archivo, "\nSalarios con expectativa entre el 10 y 20 mil pesos: %d\n", salarioExpectativaAlta);
-    fprintf(archivo, "\nEn total ganan un porcentaje total mas del salario minimo de la empresa entre 10-20 mil pesos es del: %.2f\n", promedioSA);
-    } else 
+    fprintf(archivo, "\nLa personas que pidieron salarios entre el 10 y 20 mil pesos son: %d\n", salarioExpectativaAlta);
+    fprintf(archivo, "\nEl promedio de porcentaje de expectativa alta respecto al salario minimo de las personas que ingresaron un salario entre 10-20 mil pesos es del: (%.2f%%)", promedioSA);
+    } else
         fprintf(archivo, "No ingresaste ningun salario que cumple este parametro de 10-20 mil pesos");
     if(salarioBa!=0){
-        fprintf(archivo, "\nSalarios con expectativa entre 5 a 10 a mil pesos: %d\n", salarioExpectativaBaja);
-        fprintf(archivo, "\nEn total ganan un porcentaje total mas del salario minimo de la empresa entre 5-10 mil pesos es del: %.2f\n", promedioSB);
+        fprintf(archivo, "\nLas personas que pidieron salarios entre 5 a 10 a mil pesos son: %d\n", salarioExpectativaBaja);
+    fprintf(archivo, "\nEl promedio de porcentaje de expectativa baja  respecto al salario minimo de las personas que ingresaron un salario entre 5-10 mil pesos es del: (%.2f%%)", promedioSB);
     }
-    else 
+    else
         fprintf(archivo, "No ingresaste ningun salario que cumple el parametro de 5-10 mil pesos");
 }
 
@@ -491,10 +502,9 @@ void mostrarEdadRango(ColaCircular *colaC, FILE *archivo) {
         }
     }
     float porcentaje = total > 0 ? ((float)enRango / total) * 100 : 0;
-    fprintf(archivo, "\nCantidad de empleados entre 25 y 45 años: %d empleados de %d (%.2f%%)\n", enRango, total, porcentaje);
+    fprintf(archivo, "\nCantidad de empleados entre 25 y 45 a�os: %d empleados de %d (%.2f%%)\n", enRango, total, porcentaje);
     fprintf(archivo, "======================================================================");
 }
-
 void mostrarEstados(ColaCircular *colaC, FILE *archivo) {
     if (validarVacio(*colaC)) {
         fprintf(archivo, "\nNo hay empleados registrados.\n");
@@ -510,13 +520,13 @@ void mostrarEstados(ColaCircular *colaC, FILE *archivo) {
     do {
         int repetido = 0;
         for (int j = 0; j < numEstados; j++) {
-            if (strcmp(estados[j], colaC->arrCola[i].estado) == 0) {
+            if (strcmp(estados[j], colaC->arrCola[i].INE.estado) == 0) {
                 repetido = 1;
                 break;
             }
         }
         if (!repetido) {
-            strcpy(estados[numEstados++], colaC->arrCola[i].estado);
+            strcpy(estados[numEstados++], colaC->arrCola[i].INE.estado);
         }
 
         i++;
@@ -528,7 +538,6 @@ void mostrarEstados(ColaCircular *colaC, FILE *archivo) {
         fprintf(archivo, " - %s", estados[i]);
     }
 }
-
 void carrera(ColaCircular *colaC, FILE *archivo){
     int i;
     int v1=0, v2=0, v3=0, v4=0, v5=0;
@@ -536,7 +545,7 @@ void carrera(ColaCircular *colaC, FILE *archivo){
     if (!validarVacio(*colaC)){
         if (colaC->h<= colaC->t){
             for (i=colaC->h; i<=colaC->t ; i++){
-                if (colaC->arrCola[i].puesto[0] == '1'){  // Accedemos al primer carácter del string sea mayuuscula o minuscula
+                if (colaC->arrCola[i].puesto[0] == '1'){  // Accedemos al primer car�cter del string sea mayuuscula o minuscula
                     v1++;
                 }
                 if (colaC->arrCola[i].puesto[0] == '2'  ) {
@@ -560,7 +569,7 @@ void carrera(ColaCircular *colaC, FILE *archivo){
         }
         else {
             for (i=colaC->h; i<colaC->max; i++){
-                if (colaC->arrCola[i].puesto[0] == '1'){  // Accedemos al primer carácter del string sea mayuuscula o minuscula
+                if (colaC->arrCola[i].puesto[0] == '1'){  // Accedemos al primer car�cter del string sea mayuuscula o minuscula
                     v1++;
                 }
                 if (colaC->arrCola[i].puesto[0] == '2'  ) {
@@ -577,7 +586,7 @@ void carrera(ColaCircular *colaC, FILE *archivo){
                 }
             }
             for (i=0; i<=colaC->t; i++){
-               if (colaC->arrCola[i].puesto[0] == '1'){  // Accedemos al primer carácter del string sea mayuuscula o minuscula
+               if (colaC->arrCola[i].puesto[0] == '1'){  // Accedemos al primer car�cter del string sea mayuuscula o minuscula
                     v1++;
                 }
                 if (colaC->arrCola[i].puesto[0] == '2'  ) {
@@ -614,32 +623,32 @@ void generoMayorP(ColaCircular *colaC, FILE *archivo){
     int contadorM = 0, contadorF=0;
     if (colaC->h <= colaC->t) {
         for (int i = colaC->h; i <= colaC->t; i++) {
-            if(colaC->arrCola[i].genero[0]=='M'||colaC->arrCola[i].genero[0]=='m'){
+            if(colaC->arrCola[i].INE.genero[0]=='M'||colaC->arrCola[i].INE.genero[0]=='m'){
                 sumaM += colaC->arrCola[i].salario;
                     contadorM++;
             }
-            else if(colaC->arrCola[i].genero[0]=='F' || colaC->arrCola[i].genero[0]=='f'){
+            else if(colaC->arrCola[i].INE.genero[0]=='F' || colaC->arrCola[i].INE.genero[0]=='f'){
                     sumaF += colaC->arrCola[i].salario;
                     contadorF++;
                 }
         }
     } else {
         for (int i = colaC->h; i < colaC->max; i++) {
-            if(colaC->arrCola[i].genero[0]=='M'||colaC->arrCola[i].genero[0]=='m'){
+            if(colaC->arrCola[i].INE.genero[0]=='M'||colaC->arrCola[i].INE.genero[0]=='m'){
                 sumaM += colaC->arrCola[i].salario;
                     contadorM++;
             }
-            else if(colaC->arrCola[i].genero[0]=='F' || colaC->arrCola[i].genero[0]=='f'){
+            else if(colaC->arrCola[i].INE.genero[0]=='F' || colaC->arrCola[i].INE.genero[0]=='f'){
                     sumaF += colaC->arrCola[i].salario;
                     contadorF++;
                 }
         }
         for (int i = 0; i <= colaC->t; i++) {
-            if(colaC->arrCola[i].genero[0]=='M'||colaC->arrCola[i].genero[0]=='m'){
+            if(colaC->arrCola[i].INE.genero[0]=='M'||colaC->arrCola[i].INE.genero[0]=='m'){
                 sumaM += colaC->arrCola[i].salario;
                     contadorM++;
             }
-            else if(colaC->arrCola[i].genero[0]=='F' || colaC->arrCola[i].genero[0]=='f'){
+            else if(colaC->arrCola[i].INE.genero[0]=='F' || colaC->arrCola[i].INE.genero[0]=='f'){
                     sumaF += colaC->arrCola[i].salario;
                     contadorF++;
                 }
@@ -654,3 +663,30 @@ void generoMayorP(ColaCircular *colaC, FILE *archivo){
             fprintf(archivo, "El genero con mayor expectativa salarial es el femenino con: %.2f", sumaF);
         }
 }
+Empleados buscar(ColaCircular *colaC, int ID){
+     
+    if (colaC->h <= colaC->t) {
+        for (int i = colaC->h; i <= colaC->t; i++) {
+            if (ID==colaC->arrCola[i].id){
+                return colaC->arrCola[i];
+            }
+            
+        }
+    
+    }else{
+        for(int i = colaC->h; i <= colaC->max-1; i++){
+            if (ID==colaC->arrCola[i].id){
+                return colaC->arrCola[i];
+        }
+        }
+        for(int i = 0; i <= colaC->t; i++){
+            if (ID==colaC->arrCola[i].id){
+                return colaC->arrCola[i];
+        }
+        }
+    
+        
+    }
+}
+
+
