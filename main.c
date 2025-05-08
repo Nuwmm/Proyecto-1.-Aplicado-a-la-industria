@@ -94,8 +94,11 @@ int main()
                             printf("Ingresa el ID del empleado: ");
                             scanf("%d",&ID);
                             Empleados *empleado=buscar(colaEmpleado, ID);
-                            if(empleado!=NULL)
+                            if(empleado!=NULL){
                                 listarEmpleado(*empleado);
+                            }else{
+                                printf("No existe un usuario con ese ID");
+                            }
                         }else
                             printf("No hay datos en la cola.\n");
                         break;
