@@ -4,11 +4,8 @@
 #include "SGSE.h"
 #include "colaYpila.h"
 
-// COLA
-
 ColaCircular *crearColaCircular(int max) {
     ColaCircular *nuevaCola;
-    //crear la cola y el arreglo
     nuevaCola = malloc(sizeof(ColaCircular));
     if(nuevaCola == NULL)
     {
@@ -21,13 +18,12 @@ ColaCircular *crearColaCircular(int max) {
         printf("\nError en la asignacion de memoria. . .");
         exit(-1);
     }
-    //INICIALIZAR
     nuevaCola->max = max;
     nuevaCola->h = nuevaCola->t= -1;
     return nuevaCola;
 }
 
-int validarEspacio(ColaCircular colaC){ // verifica si la cola esta llena si esta llena o no esta llena 
+int validarEspacio(ColaCircular colaC){
     if ((colaC.h == 0 && colaC.t == colaC.max-1)
         || (colaC.t == colaC.h-1)){
         printf("\nNo hay espacio...\n");
@@ -37,14 +33,11 @@ int validarEspacio(ColaCircular colaC){ // verifica si la cola esta llena si est
 }
 
 void insertar(ColaCircular *colaC, Empleados dato) {
-    if (colaC->h == -1) //cola vacia
-        colaC->h= 0;//INICIO DE LA FILA
+    if (colaC->h == -1)
+        colaC->h= 0;
     if (colaC->t == colaC->max-1)
         colaC->t = -1;
-
     colaC->t++;
-
-    //INSERTA EL DATO EN LA FILA
     colaC->arrCola[colaC->t]=dato;
 }
 
@@ -117,11 +110,36 @@ Empleados borrar(ColaCircular *colaC){
     return aux;
 }
 
+Empleados *buscar(ColaCircular *colaC, int ID){
+    if (colaC->h <= colaC->t) {
+        for (int i = colaC->h; i <= colaC->t; i++) {
+            if (ID==colaC->arrCola[i].id){
+                printf("\nEl empleado con el ID %d es:\n", ID);
+                return &colaC->arrCola[i];
+            }
+            
+        }
+    }else{
+        for(int i = colaC->h; i <= colaC->max-1; i++){
+            if (ID==colaC->arrCola[i].id){
+                printf("\nEl empleado con el ID %d es:\n", ID);
+                return &colaC->arrCola[i];
+            }
+        }
+        for(int i = 0; i <= colaC->t; i++){
+            if (ID==colaC->arrCola[i].id){
+                printf("\nEl empleado con el ID %d es:\n", ID);
+                return &colaC->arrCola[i];
+            }
+        }
+    }
+    printf("\nNo existe un empleado con el ID: %d . . .\n", ID);
+    return NULL;
+}
+
 void liberarMemoriaCola(ColaCircular *colaC){
     free(colaC->arrCola);
 }
-
-//PILA
 
 Pila *crearPila(int max){
     Pila *pila = (Pila *)malloc(sizeof(Pila));
@@ -130,7 +148,6 @@ Pila *crearPila(int max){
     pila->arrPila = (Empleados *)calloc(max, sizeof(Empleados));
     if(pila->arrPila==NULL)
         exit(-1);
-    //INICIALIZAR VALORES
     pila->cima=-1;
     pila->max=max;
     return pila;
@@ -168,8 +185,6 @@ void liberarMemoriaPila(Pila *pila){
     printf("Pila liberada . . .");
 }
 
-// VALIDACION
-
 void encuesta(ColaCircular *colaC){
     int i;
     if (!validarVacio(*colaC)){
@@ -197,7 +212,7 @@ void encuesta(ColaCircular *colaC){
 }
 
 void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechazados, int *aceptados, int *rechazados){
-    int r = 0, a = 0; // Contadores
+    int r = 0, a = 0;
     int rechazado;
     if(!validarVacio(*colaC))
     {
@@ -210,7 +225,7 @@ void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechaz
                     if(colaC->arrCola[i].respuestas[j] == 0)
                     {
                         push(colaC->arrCola[i], pilaRechazados);
-                        (*rechazados)++; // contador de rechazados
+                        (*rechazados)++;
                         rechazado = 0;
                         break;
                     }
@@ -218,7 +233,7 @@ void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechaz
                 if(rechazado)
                 {
                     push(colaC->arrCola[i], pilaAceptados);
-                    (*aceptados)++; // contador de aceptados
+                    (*aceptados)++;
                 }
             }
         }
@@ -263,8 +278,7 @@ void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechaz
                 }
             }
         }
-        // Mostrar resultados
-        printf("Total aceptados: %d\n", *aceptados); // se imprime la cantidad de rechazados y aceptados
+        printf("Total aceptados: %d\n", *aceptados);
         printf("Total rechazados: %d\n", *rechazados);
     }
     else
@@ -273,7 +287,6 @@ void validarEmpleados(ColaCircular *colaC, Pila *pilaAceptados, Pila *pilaRechaz
     }
 }
 
-//ESTADISTICAS
 void aceptadosYrechazados(Pila pilaAceptados, Pila pilaRechazados, FILE *archivo){
     fprintf(archivo, "\n\t=====Empleados aceptados=====\n");
     listarPilaArchivo(pilaAceptados, archivo);
@@ -320,7 +333,7 @@ void mostrarPromedio(ColaCircular *colaC, FILE *archivo) {
     suma=(float)suma / contador;
     fprintf(archivo, "\nLa media de las edades entre los entrevistados es de %f a�os de edad.", suma);
     fprintf(archivo, "======================================================================");
-} // probar la funcion con el flotamte y entero en contador y suma
+}
 
 void promedioSalario(ColaCircular *colaC, FILE *archivo) {
     if (validarVacio(*colaC)) {
@@ -355,7 +368,7 @@ void contarGeneros(ColaCircular *colaC, FILE *archivo){
     if (!validarVacio(*colaC)){
         if (colaC->h<= colaC->t){
             for (i=colaC->h; i<=colaC->t ; i++){
-                if (colaC->arrCola[i].INE.genero[0] == 'M'|| colaC->arrCola[i].INE.genero[0] == 'm') {  // Accedemos al primer car�cter del string sea mayuuscula o minuscula
+                if (colaC->arrCola[i].INE.genero[0] == 'M'|| colaC->arrCola[i].INE.genero[0] == 'm') {
                     hombres++;
                 } else if (colaC->arrCola[i].INE.genero[0] == 'F'|| colaC->arrCola[i].INE.genero[0] == 'f') {
                     mujeres++;
@@ -367,14 +380,14 @@ void contarGeneros(ColaCircular *colaC, FILE *archivo){
 
         else {
             for (i=colaC->h; i<colaC->max; i++){
-                if (colaC->arrCola[i].INE.genero[0] == 'M'|| colaC->arrCola[i].INE.genero[0] == 'm') {  // Accedemos al primer car�cter del string sea mayuuscula o minuscula
+                if (colaC->arrCola[i].INE.genero[0] == 'M'|| colaC->arrCola[i].INE.genero[0] == 'm') {
                     hombres++;
                 } else if (colaC->arrCola[i].INE.genero[0] == 'F'|| colaC->arrCola[i].INE.genero[0] == 'f') {
                     mujeres++;
                 }
             }
             for (i=0; i<=colaC->t; i++){
-                if (colaC->arrCola[i].INE.genero[0] == 'M'|| colaC->arrCola[i].INE.genero[0] == 'm') {  // Accedemos al primer car�cter del string sea mayuuscula o minuscula
+                if (colaC->arrCola[i].INE.genero[0] == 'M'|| colaC->arrCola[i].INE.genero[0] == 'm') {
                     hombres++;
                 } else if (colaC->arrCola[i].INE.genero[0] == 'F'|| colaC->arrCola[i].INE.genero[0] == 'f') {
                     mujeres++;
@@ -386,8 +399,7 @@ void contarGeneros(ColaCircular *colaC, FILE *archivo){
     }else{
         printf("  No hay datos...");
     }
-
-    }
+}
 
 void salariosExpec(ColaCircular *colaC, FILE *archivo) {
     if (validarVacio(*colaC)) {
@@ -399,10 +411,10 @@ void salariosExpec(ColaCircular *colaC, FILE *archivo) {
     float salarioAlt=0, salarioBa=0, totalSA=0, totalSB=0, promedioSA=0, promedioSB=0;
     if (colaC->h <= colaC->t) {
         for (int i = colaC->h; i <= colaC->t; i++) {
-            int salarioRegistrado=colaC->arrCola[i].salario; //una variable que nos permita ingresar facilmente a los valores de la cola
-            if(salarioRegistrado>10000 &&salarioRegistrado<=20000){ //el if sera un parametro que dirija los salarios con expectativa alta
+            int salarioRegistrado=colaC->arrCola[i].salario;
+            if(salarioRegistrado>10000 &&salarioRegistrado<=20000){
                 salarioAlt=((float)(salarioRegistrado-4500)/4500)*100;
-                totalSA+=salarioAlt; //variable que acumule los porcentajes para posteriormente saber que porcentaje de mas quieren ganar sobre salario, es decir 8500 salario bajo, al aplicar este codigo obtendremos que querra ganar un 30% mas sobre el salario minimo
+                totalSA+=salarioAlt;
                 salarioExpectativaAlta++;
                 promedioSA=totalSA/salarioExpectativaAlta;
             }else if(salarioRegistrado>=5000 && salarioRegistrado<10000){
@@ -411,8 +423,6 @@ void salariosExpec(ColaCircular *colaC, FILE *archivo) {
                 salarioExpectativaBaja++;
                 promedioSB=totalSB/salarioExpectativaBaja;
             }
-
-
         }
         if(totalSA!=0){
     fprintf(archivo, "\nLa personas que pidieron salarios entre el 10 y 20 mil pesos son: %d\n", salarioExpectativaAlta);
@@ -532,9 +542,7 @@ void mostrarEstados(ColaCircular *colaC, FILE *archivo) {
 
         i++;
         if (i == colaC->max) i = 0;
-    } while (i != (colaC->t + 1) % colaC->max);  // Condición circular
-
-    // Imprimir los estados únicos
+    }while (i != (colaC->t + 1) % colaC->max);
     for (int i = 0; i < numEstados; i++) {
         fprintf(archivo, " - %s", estados[i]);
     }
@@ -543,11 +551,10 @@ void mostrarEstados(ColaCircular *colaC, FILE *archivo) {
 void carrera(ColaCircular *colaC, FILE *archivo){
     int i;
     int v1=0, v2=0, v3=0, v4=0, v5=0;
-     //crear tres variables mas para los otros tres contadores de los puestos de empleo
     if (!validarVacio(*colaC)){
         if (colaC->h<= colaC->t){
             for (i=colaC->h; i<=colaC->t ; i++){
-                if (colaC->arrCola[i].puesto[0] == '1'){  // Accedemos al primer car�cter del string sea mayuuscula o minuscula
+                if (colaC->arrCola[i].puesto[0] == '1'){
                     v1++;
                 }
                 if (colaC->arrCola[i].puesto[0] == '2'  ) {
@@ -571,7 +578,7 @@ void carrera(ColaCircular *colaC, FILE *archivo){
         }
         else {
             for (i=colaC->h; i<colaC->max; i++){
-                if (colaC->arrCola[i].puesto[0] == '1'){  // Accedemos al primer car�cter del string sea mayuuscula o minuscula
+                if (colaC->arrCola[i].puesto[0] == '1'){
                     v1++;
                 }
                 if (colaC->arrCola[i].puesto[0] == '2'  ) {
@@ -588,7 +595,7 @@ void carrera(ColaCircular *colaC, FILE *archivo){
                 }
             }
             for (i=0; i<=colaC->t; i++){
-               if (colaC->arrCola[i].puesto[0] == '1'){  // Accedemos al primer car�cter del string sea mayuuscula o minuscula
+                if (colaC->arrCola[i].puesto[0] == '1'){
                     v1++;
                 }
                 if (colaC->arrCola[i].puesto[0] == '2'  ) {
@@ -658,37 +665,10 @@ void generoMayorP(ColaCircular *colaC, FILE *archivo){
     }
     if(sumaM>sumaF){
             sumaM=(float)sumaM/ contadorM;
-            fprintf(archivo, "El genero con mayor expectativa salarial es el masculino con: %.2f", sumaM);
+            fprintf(archivo, "\nEl genero con mayor expectativa salarial es el masculino con: %.2f", sumaM);
         } else
             if(sumaF>sumaM){
             sumaF=(float)sumaF/ contadorF;
-            fprintf(archivo, "El genero con mayor expectativa salarial es el femenino con: %.2f", sumaF);
+            fprintf(archivo, "\nEl genero con mayor expectativa salarial es el femenino con: %.2f", sumaF);
         }
-}
-
-Empleados *buscar(ColaCircular *colaC, int ID){
-    if (colaC->h <= colaC->t) {
-        for (int i = colaC->h; i <= colaC->t; i++) {
-            if (ID==colaC->arrCola[i].id){
-                printf("\nEl empleado con el ID %d es:\n", ID);
-                return &colaC->arrCola[i];
-            }
-            
-        }
-    }else{
-        for(int i = colaC->h; i <= colaC->max-1; i++){
-            if (ID==colaC->arrCola[i].id){
-                printf("\nEl empleado con el ID %d es:\n", ID);
-                return &colaC->arrCola[i];
-            }
-        }
-        for(int i = 0; i <= colaC->t; i++){
-            if (ID==colaC->arrCola[i].id){
-                printf("\nEl empleado con el ID %d es:\n", ID);
-                return &colaC->arrCola[i];
-            }
-        }
-    }
-    printf("\nNo existe un empleado con el ID: %d . . .\n", ID);
-    return NULL;
 }

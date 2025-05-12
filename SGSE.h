@@ -18,7 +18,6 @@ typedef struct
 } Empleados;
  */
 
-//PROTOTIPOS DE FUNCIONES
 Empleados *inicializarEmpleados();
 void capturarEmpleado(Empleados *empleado);
 void listarEmpleado(Empleados empleado);
@@ -26,5 +25,5 @@ void listarEmpleadoArchivo(Empleados empleado, FILE *archivo);
 void liberarEmpleados(Empleados *empleado);
 void encuestaEmpleado(Empleados *empleado);
 
-#endif // SGSE_H_INCLUDED
+#endif
 

@@ -5,8 +5,7 @@
 #include "SGSE.h"
 #include "colaYpila.h"
 
-Empleados *inicializarEmpleados()
-{
+Empleados *inicializarEmpleados(){
     Empleados *nuevoEmpleado;
     nuevoEmpleado = (Empleados *)malloc(sizeof(Empleados));
     if(nuevoEmpleado == NULL)
@@ -15,19 +14,16 @@ Empleados *inicializarEmpleados()
     nuevoEmpleado->puesto = (char *)calloc(MAX_TEXTO, sizeof(char));
     nuevoEmpleado->experiencia = (char *)calloc(MAX_TEXTO, sizeof(char));
     nuevoEmpleado->telefono = (char *)calloc(MAX_TEXTO, sizeof(char));
-    //se borró el genero y estado movimiento 2
     nuevoEmpleado->departamento = (char *)calloc(MAX_TEXTO, sizeof(char));
     nuevoEmpleado->respuestas = (int *)calloc(MAX_ENCUESTA, sizeof(int));
     if(!nuevoEmpleado->nombre || !nuevoEmpleado->puesto || !nuevoEmpleado->experiencia || !nuevoEmpleado->departamento || !nuevoEmpleado->respuestas)
         exit(-1);
-    // INICIALIZAR ID
     nuevoEmpleado->id=1000+rand()%1999;
-    strcpy(nuevoEmpleado->departamento, "Recursos Humanos"); // Se puede modificar
+    strcpy(nuevoEmpleado->departamento, "Recursos Humanos");
     return nuevoEmpleado;
 }
 
-void capturarEmpleado(Empleados *empleado)
-{
+void capturarEmpleado(Empleados *empleado){
     getchar();
     printf("\nIngresa tu nombre completo: ");
     fgets(empleado->nombre, MAX_TEXTO, stdin);
@@ -44,11 +40,10 @@ void capturarEmpleado(Empleados *empleado)
     getchar();
     fgets(empleado->telefono, MAX_TEXTO, stdin);
     printf("\nEn que estado resides?: ");
-    fgets(empleado->INE.estado, MAX_TEXTO, stdin); // movimiento 3
+    fgets(empleado->INE.estado, MAX_TEXTO, stdin);
 }
 
-void listarEmpleadoArchivo(Empleados empleado, FILE *archivo)
-{
+void listarEmpleadoArchivo(Empleados empleado, FILE *archivo){
     fprintf(archivo, "\nNombre: %s", empleado.nombre);
     fprintf(archivo, "Edad: %d", empleado.edad);
     fprintf(archivo, "\nG�nero: %s", empleado.INE.genero);
@@ -56,13 +51,12 @@ void listarEmpleadoArchivo(Empleados empleado, FILE *archivo)
     fprintf(archivo, "\nPuesto: %s", empleado.puesto);
     fprintf(archivo, "Salario: %.2f", empleado.salario);
     fprintf(archivo, "\nTelefono: %s", empleado.telefono);
-    fprintf(archivo, "Estado: %s", empleado.INE.estado);//movimiento 4
+    fprintf(archivo, "Estado: %s", empleado.INE.estado);
     fprintf(archivo, "Departamento: %s", empleado.departamento);
     fprintf(archivo, "\n====================================================\n");
 }
 
-void listarEmpleado(Empleados empleado)
-{
+void listarEmpleado(Empleados empleado){
     printf("\nNombre: %s", empleado.nombre);
     printf("Edad: %d", empleado.edad);
     printf("\nG�nero: %s", empleado.INE.genero);
@@ -71,12 +65,11 @@ void listarEmpleado(Empleados empleado)
     printf("Salario: %.2f", empleado.salario);
     printf("\nTelefono: %s", empleado.telefono);
     printf("Estado: %s", empleado.INE.estado);
-    printf("Departamento: %s", empleado.departamento);//movimiento 5
+    printf("Departamento: %s", empleado.departamento);
     printf("\n====================================================\n");
 }
 
-void encuestaEmpleado(Empleados *empleado)
-{
+void encuestaEmpleado(Empleados *empleado){
     int i=0, k;
     char respuesta[3];
     *(empleado->respuestas+i)=(empleado->edad<18) ? 0 : 1;
@@ -102,12 +95,11 @@ void encuestaEmpleado(Empleados *empleado)
     *(empleado->respuestas+i) = (k < 6) ? 0 : 1;
 }
 
-void liberarEmpleados(Empleados *empleado)
-{
+void liberarEmpleados(Empleados *empleado){
     free(empleado->respuestas);
     free(empleado->departamento);
     free(empleado->telefono);
     free(empleado->experiencia);
     free(empleado->puesto);
-    free(empleado->nombre); //Movimiento 6
+    free(empleado->nombre);
 }

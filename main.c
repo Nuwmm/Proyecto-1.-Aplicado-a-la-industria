@@ -7,17 +7,16 @@
 int main()
 {
     int opcion, opcion2, numEmpleados;
-    // SOLICITAR DATOS
     printf("\nEmpleados que se registraran: ");
     scanf("%d", &numEmpleados);
     ColaCircular *colaEmpleado = crearColaCircular(numEmpleados);
     Pila *pilaAceptados = crearPila(numEmpleados);
     Pila *pilaRechazados = crearPila(numEmpleados);
-    int a = 0, r = 0; // contadores para los porcentajes de aceptados y rechazados
+    int a = 0, r = 0;
     FILE *archivo;
-    char linea[100]; //cantidad maxima de caracteres que peude leer la funcion fgets 
+    char linea[100]; 
 
-    archivo = fopen("empleo.txt", "r"); //Se abrio el archivo con r para que solo sea lectura y no se modifique o se borre.
+    archivo = fopen("empleo.txt", "r");
 
     if (archivo == NULL) {
         printf("El archivo no existe. . .\n");
@@ -25,16 +24,16 @@ int main()
     }
 
     while (fgets(linea, sizeof(linea), archivo)) {
-        printf("%s", linea); // se mando a imprimir todo el contenido del archivo txt linea por linea
+        printf("%s", linea);
     }
 
-    fclose(archivo); // se cierra el archivo y se guarda en la corrida
+    fclose(archivo);
 
     do
     {
         printf("\n\n====Sistema de Gestion de Solicitudes de Empleo====\n");
         opcion = desplegarMenu("\n1)Ingresar un nuevo empleado\n2)Realizar encuesta\n3)Realizar validacion\n4)Listar empleados\n5)Opciones de la Cola y Pila\n6)Mostrar las estadisticas de los empleados\n7)Salir\n\nOpcion: ", 7);
-        switch (opcion) // se le agreg� al switch una opcion mas para la funcion estadistica, de momento solo va a ser una pero se le van a meter mas. _____________________________________________________________________________________________
+        switch (opcion)
         {
             case 1:
                 if(validarEspacio(*colaEmpleado))
@@ -49,7 +48,7 @@ int main()
                 encuesta(colaEmpleado);
                 break;
             case 3:
-                validarEmpleados(colaEmpleado, pilaAceptados, pilaRechazados, &a, &r);// se pasa la direccion de memoria de a y r para que se guarde el contador en al variable
+                validarEmpleados(colaEmpleado, pilaAceptados, pilaRechazados, &a, &r);
                 printf("\nValidacion realizada con exito. . .");
                 break;
             case 4:
@@ -106,16 +105,16 @@ int main()
             case 6:
                 archivo=fopen("Estadisticas.txt", "w");
                 if(archivo!=NULL){
-                    mostrarPorcentajes(a, r, archivo); // se va a llamar la funcion para mostrar la primera estadistica #1
-                    aceptadosYrechazados(*pilaAceptados, *pilaRechazados, archivo); // #2
-                    mostrarPromedio(colaEmpleado, archivo); // #3
-                    promedioSalario(colaEmpleado, archivo);// hay qe meter estas estadisticas al archivo txt e imprimirlo #4
-                    mostrarEdadRango(colaEmpleado, archivo);//rango de edades de 17 a 45 #5
-                    mostrarEstados(colaEmpleado, archivo);//Estado de origen #6
-                    contarGeneros(colaEmpleado, archivo);//Genero de los empleados #7
-                    salariosExpec(colaEmpleado, archivo); //Porcentajes que indican cuanto porcentaje ganan de mas sobre respectivamente sobre el salario minimo #8
-                    carrera(colaEmpleado, archivo); // #9
-                    generoMayorP(colaEmpleado, archivo); // #10
+                    mostrarPorcentajes(a, r, archivo);
+                    aceptadosYrechazados(*pilaAceptados, *pilaRechazados, archivo);
+                    mostrarPromedio(colaEmpleado, archivo);
+                    promedioSalario(colaEmpleado, archivo);
+                    mostrarEdadRango(colaEmpleado, archivo);
+                    mostrarEstados(colaEmpleado, archivo);
+                    contarGeneros(colaEmpleado, archivo);
+                    salariosExpec(colaEmpleado, archivo);
+                    carrera(colaEmpleado, archivo);
+                    generoMayorP(colaEmpleado, archivo);
                 }
                 else{
                     printf("El archivo no existe. . .\n");
@@ -123,7 +122,7 @@ int main()
                 }
                 fclose(archivo);
         }
-    }while(opcion!=7); //Se va a ir modificando
+    }while(opcion!=7);
     if(colaEmpleado->h<=colaEmpleado->t)
     {
         for(int i=colaEmpleado->h; i<colaEmpleado->t; i++)
